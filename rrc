@@ -1,0 +1,44 @@
+#!/bin/bash
+
+RCDIR=$PWD/homerc
+CONFDIR=$PWD/config
+
+i=1 # the resource number
+
+if [ -d $RCDIR ]; then
+    RC_LIST=`ls $RCDIR`
+fi
+if [ -d $CONFDIR ]; then
+    CONFIG_LIST=`ls $CONFDIR`
+fi
+
+for rcfile in $RC_LIST
+do
+    dotrc=$HOME/.$rcfile
+    echo -e "$i) Try to restore the $dotrc..."
+    if [ -e $dotrc -a ! -L $dotrc ]; then
+        echo -e "remove $dotrc"
+        rm -rf $dotrc
+    fi
+    if [ ! -e $dotrc ]; then
+        echo -e "Create $dotrc link now..."
+        ln -s $RCDIR/$rcfile $dotrc
+    else
+        echo -e "Skip $dotrc settting."
+    fi
+    let "i+=1"
+done
+
+for conffile in $CONFIG_LIST
+do
+    homeconf=$HOME/.config/$conffile
+    if [ -d $homeconf -a ! -L $homeconf ]; then
+        rm -rf $homeconf
+    fi
+    if [ ! -d $homeconf ]; then
+	echo -e "remove $homeconf"
+        ln -s $PWD/config/$conffile $homeconf
+        echo -e "Link the $conffile at ~/.config/ ..."
+    fi
+done
+

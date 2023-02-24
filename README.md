@@ -1,2 +1,4 @@
 # dotfiles
-Home's rc files
+BinLi's rc files
+
+rrc - a script to restore rc files
