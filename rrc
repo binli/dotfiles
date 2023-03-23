@@ -91,16 +91,42 @@ init_vim()
     if [ ! -e $VIM_PLUGIN/dirdiff.vim ]; then
         git clone git@github.com:will133/vim-dirdiff.git
 	cp vim-dirdiff/plugin/dirdiff.vim $VIM_PLUGIN/
+	rm -rf vim-dirdiff
     fi
     if [ ! -e $VIM_PLUGIN/cscope_macros.vim ]; then
         wget http://www.vim.org/scripts/download_script.php?src_id=171 -O $VIM_PLUGIN/cscope_macros.vim
     fi
     if [ ! -e $VIM_PLUGIN/surround.vim ]; then
-        wget https://github.com/tpope/vim-surround/raw/master/plugin/surround.vim -O $VIM_PLUGIN/surround.vim
+        git clone git@github.com:tpope/vim-surround.git
+	cp vim-surround/plugin/surround.vim $VIM_PLUGIN/
+	rm -rf vim-surround
     fi
+}
+
+init_gnome()
+{
+    gsettings set org.gnome.desktop.interface enable-hot-corners true
+    gsettings set org.gnome.desktop.interface clock-show-weekday true
+    gsettings set org.gnome.desktop.calendar show-weekdate true
+    # Screen Blank
+    gsettings set org.gnome.desktop.session idle-delay 0
+    gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Super>Return']"
+    # switch worksapces
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4']"
+    # Network Proxy
+    gsettings set org.gnome.system.proxy.socks host "127.0.0.1"
+    gsettings set org.gnome.system.proxy.socks port 1081
 }
 
 init_packages purge
 init_packages install
 init_vim
 init_chrome
+init_gnome
+
+if [ ! -e $HOME/.xinputrc ]; then
+    im-config
+fi
