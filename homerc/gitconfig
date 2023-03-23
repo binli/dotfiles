@@ -1,0 +1,8 @@
+[includeIf "gitdir:/tmp/"]
+        path = ~/.gitconfig_canonical
+[includeIf "gitdir:/work/source/lps/"]
+        path = ~/.gitconfig_canonical
+[includeIf "gitdir:/work/source/gits/"]
+        path = ~/.gitconfig_gnome
+[alias]
+	st = status
