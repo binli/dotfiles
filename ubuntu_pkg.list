@@ -5,6 +5,7 @@ fcitx-table-wubi
 flex
 git-email
 jq
+libfuse2
 oathtool
 openssh-server
 quilt
