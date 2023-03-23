@@ -1,0 +1,15 @@
+bison
+devscripts
+dput
+fcitx-table-wubi
+flex
+git-email
+jq
+oathtool
+openssh-server
+quilt
+smplayer
+tmux
+vim
+#gnome-shell-extension-ubuntu-dock
+#snapd
