@@ -101,6 +101,11 @@ init_vim()
 	cp vim-surround/plugin/surround.vim $VIM_PLUGIN/
 	rm -rf vim-surround
     fi
+    if [ ! -e $VIM_PLUGIN/auto-pairs.vim ]; then
+        git clone git@github.com:jiangmiao/auto-pairs.git
+	cp auto-pairs/plugin/auto-pairs.vim $VIM_PLUGIN/
+	rm -rf auto-pairs
+    fi
 }
 
 init_gnome()
