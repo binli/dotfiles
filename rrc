@@ -126,12 +126,23 @@ init_gnome()
     gsettings set org.gnome.system.proxy.socks port 1081
 }
 
+stop_aptupdate()
+{
+    sudo systemctl disable apt-daily.timer
+    sudo systemctl disable apt-daily-upgrade.timer
+    sudo systemctl disable unattended-upgrades.service
+}
+
 init_packages purge
 init_packages install
 init_vim
 init_chrome
 init_gnome
+stop_aptupdate
 
 if [ ! -e $HOME/.xinputrc ]; then
     im-config
 fi
+
+# Disable BT by default
+sudo sed -i "s%AutoEnable=true%AutoEnable=false%" /etc/bluetooth/main.conf
