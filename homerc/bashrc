@@ -95,6 +95,7 @@ alias la='ls -A'
 alias l='ls -CF'
 alias e='exit'
 alias tmux='tmux attach'
+alias dch='/usr/bin/dch -U'
 #below is in openSUSE
 alias ..='cd ..'
 
