@@ -56,5 +56,5 @@ if has('syntax') && has('eval')
 endif
 " binLi's own config.
 set encoding=utf-8
-"set list listchars=tab:→\ ,trail:·
+set list listchars=tab:→\ ,trail:·
 let g:DirDiffExcludes = ".bzr,.git,.*.swp,*.in,cscope.*,*~,*.lo"
