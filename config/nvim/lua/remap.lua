@@ -1,5 +1,5 @@
-vim.g.mapleader = ","
-vim.keymap.set("n", "<leader>p", vim.cmd.Ex)
+vim.g.mapleader = ','
+vim.keymap.set('n', '<leader>p', vim.cmd.Ex)
 
 local builtin = require('telescope.builtin')
 

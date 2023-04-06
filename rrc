@@ -133,12 +133,29 @@ stop_aptupdate()
     sudo systemctl disable unattended-upgrades.service
 }
 
+init_neovim()
+{
+    if [ ! -e /usr/bin/nvim ]; then
+        curl -O https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
+        sudo dpkg -i nvim-linux64.deb
+        sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 50
+        rm nvim-linux64.deb
+    fi
+
+    packer="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    if [ ! -e $packer ] ; then
+        git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+        ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+    fi
+}
+
 init_packages purge
 init_packages install
 init_vim
 init_chrome
 init_gnome
 stop_aptupdate
+init_neovim
 
 if [ ! -e $HOME/.xinputrc ]; then
     im-config
