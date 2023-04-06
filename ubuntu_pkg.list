@@ -2,6 +2,7 @@
 autossh
 bison
 cscope
+curl
 debhelper-compat
 davfs2
 devscripts
@@ -9,10 +10,12 @@ dput
 fcitx-table-wubi
 fd-find
 flex
+jenkins-job-builder
 gimp
 git-email
 jq
 libfuse2
+neovim
 oathtool
 openssh-server
 quilt
