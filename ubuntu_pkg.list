@@ -15,6 +15,7 @@ gimp
 git-email
 jq
 libfuse2
+libglib2.0-dev
 oathtool
 openssh-server
 quilt
