@@ -6,3 +6,5 @@
         path = ~/.gitconfig_gnome
 [alias]
 	st = status
+[core]
+	editor = vi
