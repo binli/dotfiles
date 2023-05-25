@@ -13,3 +13,9 @@ if has('persistent_undo')
   set undolevels=100    " How many undos, BinLi
   set undoreload=100    " number of lines to save for undo, BinLi
 endif
+
+let g:copilot_filetypes = {
+    \ 'gitcommit': v:true,
+    \ 'markdown': v:true,
+    \ 'yaml': v:true
+    \ }
