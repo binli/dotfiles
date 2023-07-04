@@ -1,6 +1,7 @@
 7zip
 autossh
 bison
+colordiff
 cscope
 curl
 debhelper-compat
@@ -23,6 +24,7 @@ ripgrep
 smplayer
 tmux
 transmission
+ubuntu-dev-tools
 vim
 #gnome-shell-extension-ubuntu-dock
 #gnome-shell-extension-desktop-icons-ng
