@@ -149,6 +149,14 @@ init_neovim()
     if [ ! -e $packer ] ; then
         git clone --depth 1 https://github.com/wbthomason/packer.nvim\
         ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+        echo "Clone packer.nvim for neovim"
+    fi
+
+    copilot="$HOME/.config/nvim/pack/github/start/copilot.vim"
+    if [ ! -e $copilot ]; then
+        git clone https://github.com/github/copilot.vim.git \
+        ~/.config/nvim/pack/github/start/copilot.vim
+        echo "Clone copilot.nvim for neovim"
     fi
 }
 
