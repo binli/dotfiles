@@ -46,7 +46,6 @@ do
         echo -e "Link the $conffile at ~/.config/ ..."
     fi
 done
-
 init_packages()
 {
     package=""
@@ -136,10 +135,10 @@ stop_aptupdate()
 init_neovim()
 {
     if [ ! -e /usr/bin/nvim ]; then
-        curl -O https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.deb
-        sudo dpkg -i nvim-linux64.deb
+        curl -O https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+        chmod u+x nvim.appimage
+        sudo mv nvim.appimage /usr/bin/nvim
         sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 50
-        rm nvim-linux64.deb
     fi
 
     packer="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
@@ -148,6 +147,8 @@ init_neovim()
         ~/.local/share/nvim/site/pack/packer/start/packer.nvim
     fi
 }
+
+sudo umount /var/snap/firefox/common/host-hunspell
 
 init_packages purge
 init_packages install
