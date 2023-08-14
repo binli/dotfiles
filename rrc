@@ -116,6 +116,10 @@ init_gnome()
     gsettings set org.gnome.desktop.session idle-delay 0
     gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Super>Return']"
     # switch worksapces
+    gsettings set org.gnome.shell.keybindings switch-to-application-1 []
+    gsettings set org.gnome.shell.keybindings switch-to-application-2 []
+    gsettings set org.gnome.shell.keybindings switch-to-application-3 []
+    gsettings set org.gnome.shell.keybindings switch-to-application-4 []
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
