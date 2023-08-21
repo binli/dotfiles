@@ -17,6 +17,7 @@ git-email
 jq
 libfuse2
 libglib2.0-dev
+lxc-utils
 nodejs
 oathtool
 openssh-server
