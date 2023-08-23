@@ -127,6 +127,8 @@ init_gnome()
     # Network Proxy
     gsettings set org.gnome.system.proxy.socks host "127.0.0.1"
     gsettings set org.gnome.system.proxy.socks port 1081
+
+    gsettings set org.gnome.mutter edge-tiling true
 }
 
 stop_aptupdate()
