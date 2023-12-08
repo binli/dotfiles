@@ -8,3 +8,13 @@
 	st = status
 [core]
 	editor = vi
+[gpg]
+	program = gpg
+[user]
+	signingkey = F6FD6C84E7A3C2E8
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true
+[push]
+	gpgSign = if-asked
