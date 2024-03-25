@@ -131,5 +131,5 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 if [ ! -d "/tmp/vimbk" ] ; then
-  mkdir /tmp/vimbk
+  mkdir -p /tmp/vimbk
 fi
