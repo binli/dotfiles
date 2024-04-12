@@ -41,7 +41,7 @@ do
         rm -rf $homeconf
     fi
     if [ ! -d $homeconf ]; then
-	echo -e "remove $homeconf"
+        echo -e "remove $homeconf"
         ln -s $PWD/config/$conffile $homeconf
         echo -e "Link the $conffile at ~/.config/ ..."
     fi
@@ -54,7 +54,7 @@ init_packages()
     elif [ "$1" = "install" ]; then
         UBUNTU=`cat ubuntu_pkg.list | grep -v '^#'`
     else
-	return
+        return
     fi
     for p in $UBUNTU
     do
@@ -64,9 +64,23 @@ init_packages()
     if [ "x$package" != "x" ] ; then
         if [ $UPDATE_FLAG -eq 0 ]; then
             sudo apt-get update
-	    UPDATE_FLAG=1
+            UPDATE_FLAG=1
         fi
         sudo apt-get $1 -y $package
+    fi
+}
+
+init_firefox()
+{
+    if [ ! -e /etc/apt/preferences.d/99mozillateam ]; then
+        sudo add-apt-repository ppa:mozillateam/ppa -y
+        cat > 99mozillateam << EOF
+Package: *
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 900
+EOF
+        sudo mv 99mozillateam /etc/apt/preferences.d/
+        sudo apt install firefox -y
     fi
 }
 
@@ -89,21 +103,24 @@ init_vim()
     fi
     if [ ! -e $VIM_PLUGIN/dirdiff.vim ]; then
         git clone git@github.com:will133/vim-dirdiff.git
-	cp vim-dirdiff/plugin/dirdiff.vim $VIM_PLUGIN/
-	rm -rf vim-dirdiff
+        cp vim-dirdiff/plugin/dirdiff.vim $VIM_PLUGIN/
+        rm -rf vim-dirdiff
     fi
     if [ ! -e $VIM_PLUGIN/cscope_macros.vim ]; then
         wget http://www.vim.org/scripts/download_script.php?src_id=171 -O $VIM_PLUGIN/cscope_macros.vim
     fi
     if [ ! -e $VIM_PLUGIN/surround.vim ]; then
         git clone git@github.com:tpope/vim-surround.git
-	cp vim-surround/plugin/surround.vim $VIM_PLUGIN/
-	rm -rf vim-surround
+        cp vim-surround/plugin/surround.vim $VIM_PLUGIN/
+        rm -rf vim-surround
     fi
     if [ ! -e $VIM_PLUGIN/auto-pairs.vim ]; then
         git clone git@github.com:jiangmiao/auto-pairs.git
-	cp auto-pairs/plugin/auto-pairs.vim $VIM_PLUGIN/
-	rm -rf auto-pairs
+        cp auto-pairs/plugin/auto-pairs.vim $VIM_PLUGIN/
+        rm -rf auto-pairs
+    fi
+    if [ ! -e $HOME/.vim/pack/github/start/copilot.vim ]; then
+        git clone https://github.com/github/copilot.vim $HOME/.vim/pack/github/start/copilot.vim
     fi
 }
 
@@ -144,12 +161,12 @@ stop_aptupdate()
 
 init_neovim()
 {
-    if [ ! -e /usr/bin/nvim ]; then
-        curl -O https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-        chmod u+x nvim.appimage
-        sudo mv nvim.appimage /usr/bin/nvim
-        sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 50
-    fi
+    #if [ ! -e /usr/bin/nvim ]; then
+    #    curl -O https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    #    chmod u+x nvim.appimage
+    #    sudo mv nvim.appimage /usr/bin/nvim
+    #    sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 50
+    #fi
 
     packer="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
     if [ ! -e $packer ] ; then
@@ -174,7 +191,8 @@ init_vim
 init_chrome
 init_gnome
 stop_aptupdate
-init_neovim
+#init_neovim
+init_firefox
 
 if [ ! -e $HOME/.xinputrc ]; then
     im-config

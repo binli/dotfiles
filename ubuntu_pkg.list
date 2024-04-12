@@ -20,7 +20,7 @@ jq
 libfuse2
 libglib2.0-dev
 #lxc-utils
-neovim
+#neovim
 nodejs
 oathtool
 openssh-server
