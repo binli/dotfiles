@@ -143,11 +143,15 @@ init_gnome()
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4']"
+    gsettings set org.gnome.desktop.wm.keybindings unmaximize "['<Super>Down']"
+    gsettings set org.gnome.desktop.wm.keybindings maximize "['<Super>Up']"
     # Network Proxy
     gsettings set org.gnome.system.proxy.socks host "127.0.0.1"
     gsettings set org.gnome.system.proxy.socks port 1081
 
     gsettings set org.gnome.mutter edge-tiling true
+    gsettings set org.gnome.mutter toggle-tiled-left "['<Super>Left']"
+    gsettings set org.gnome.mutter toggle-tiled-right "['<Super>Right']"
 
     gsettings set org.gnome.settings-daemon.plugins.power idle-dim true
 }
