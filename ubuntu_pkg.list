@@ -19,7 +19,8 @@ git-email
 jq
 libfuse2
 libglib2.0-dev
-lxc-utils
+#lxc-utils
+neovim
 nodejs
 oathtool
 openssh-server
@@ -31,6 +32,7 @@ tmux
 transmission
 ubuntu-dev-tools
 unar
+universal-ctags
 vim
 #gnome-shell-extension-ubuntu-dock
 #gnome-shell-extension-desktop-icons-ng

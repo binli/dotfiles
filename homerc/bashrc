@@ -133,3 +133,6 @@ fi
 if [ ! -d "/tmp/vimbk" ] ; then
   mkdir -p /tmp/vimbk
 fi
+if [ ! -d "/tmp/nvimbk" ] ; then
+  mkdir -p /tmp/nvimbk
+fi
