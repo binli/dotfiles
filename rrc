@@ -187,6 +187,13 @@ init_neovim()
     fi
 }
 
+init_etc()
+{
+    if [ ! -e /etc/sudoers.d/nopwd ]; then
+        sudo cp etc/nopwd /etc/sudoers.d/
+    fi
+}
+
 sudo umount /var/snap/firefox/common/host-hunspell
 
 init_packages purge
@@ -197,6 +204,7 @@ init_gnome
 stop_aptupdate
 #init_neovim
 init_firefox
+init_etc
 
 if [ ! -e $HOME/.xinputrc ]; then
     im-config
