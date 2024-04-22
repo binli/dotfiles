@@ -6,6 +6,8 @@
         path = ~/.gitconfig_ubuntu
 [url "git+ssh://binli@git.launchpad.net/ubuntu/+source/"]
         insteadof = u:
+[url "git+ssh://binli@git.launchpad.net/"]
+        insteadof = lp:
 [alias]
 	st = status
 [core]
