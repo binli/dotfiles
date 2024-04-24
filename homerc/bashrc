@@ -136,3 +136,5 @@ fi
 if [ ! -d "/tmp/nvimbk" ] ; then
   mkdir -p /tmp/nvimbk
 fi
+
+export LAUNCHPAD_TOKEN="1pm6vhjV9Bd4q87lts2M:fHw2gl1PLsjXdswb3k6RwZxB5h5sR85NsHRS85JblKPfxqV1QW89H65khzvLkNzgtw3lRTjT0Q9Bkfqs:System-wide: Ubuntu (binli Cheetah3-15)"
