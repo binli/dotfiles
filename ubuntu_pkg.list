@@ -18,8 +18,11 @@ gimp
 git-email
 #gnome-initial-setup
 jq
+libelf-dev
 libfuse2
 libglib2.0-dev
+libncurses-dev
+libssl-dev
 #lxc-utils
 #neovim
 nodejs
