@@ -5,9 +5,10 @@ black
 colordiff
 cscope
 curl
-debhelper-compat
 davfs2
+debhelper-compat
 devscripts
+dh-modaliases
 dput
 fcitx-table-wubi
 fd-find
