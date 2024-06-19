@@ -30,6 +30,7 @@ nodejs
 oathtool
 openssh-server
 quilt
+rclone
 ripgrep
 shellcheck
 smplayer
