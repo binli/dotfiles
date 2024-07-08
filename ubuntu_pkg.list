@@ -16,6 +16,7 @@ flake8
 flex
 jenkins-job-builder
 gimp
+git-buildpackage
 git-email
 #gnome-initial-setup
 jq
