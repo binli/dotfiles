@@ -1,9 +1,3 @@
-#[includeIf "gitdir:/tmp/"]
-#        path = ~/.gitconfig_canonical
-#[includeIf "gitdir:/work/source/lps/"]
-#        path = ~/.gitconfig_canonical
-#[includeIf "gitdir:/work/source/gits/"]
-#        path = ~/.gitconfig_ubuntu
 [url "git+ssh://binli@git.launchpad.net/ubuntu/+source/"]
         insteadof = u:
 [url "git+ssh://binli@git.launchpad.net/"]
