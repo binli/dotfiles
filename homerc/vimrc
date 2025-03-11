@@ -64,5 +64,6 @@ set shiftwidth=4
 set expandtab
 " softtabstop的值为负数,会使用shiftwidth的值,两者保持一致,方便统一缩进.
 set softtabstop=-1
+set mouse=
 
 let g:DirDiffExcludes = ".bzr,.git,.*.swp,*.in,cscope.*,*~,*.lo"
