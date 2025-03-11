@@ -81,15 +81,32 @@
       clock-show-weekdate = true;
       show-battery-percentage = true;
     };
+    "org/gnome/desktop/session" = {
+      idle-delay = 0;
+    };
     "org/gnome/desktop/wm/keybindings" = {
       switch-to-workspace-1 = ["<Super>1"];
       switch-to-workspace-2 = ["<Super>2"];
       switch-to-workspace-3 = ["<Super>3"];
       switch-to-workspace-4 = ["<Super>4"];
+      switch-applications = [];
+      switch-applications-backward = [];
+      switch-windows = ["<Alt>Tab"];
+      switch-windows-backward = ["<Shift><Alt>Tab"];
     };
     "org/gnome/settings-daemon/plugins/power" = {
       sleep-inactive-ac-type = "nothing";
       sleep-inactive-battery-timeout = 7200;
+    };
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/console/"
+      ];
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/console" = {
+      binding = "<Super>Return";
+      command = "kgx";
+      name = "Console";
     };
     "org/gnome/shell/keybindings" = {
       switch-to-application-1 = [];
