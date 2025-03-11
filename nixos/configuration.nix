@@ -30,6 +30,16 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_HK.UTF-8";
 
+  i18n.inputMethod = {
+    type = "fcitx5";
+    enable = true;
+    fcitx5.addons = with pkgs; [
+       fcitx5-gtk             # alternatively, kdePackages.fcitx5-qt
+       fcitx5-chinese-addons  # table input method support
+       fcitx5-nord            # a color theme
+    ];
+  };
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -104,7 +114,14 @@
   programs.git.enable = true;
   programs.git.prompt.enable = true;
 
-  programs.geary.enable = false;
+  #programs.geary.enable = false;
+  environment.gnome.excludePackages = [
+    pkgs.totem
+    pkgs.geary
+    pkgs.gnome-calendar
+    pkgs.gnome-tour
+    pkgs.gnome-maps
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -117,6 +134,13 @@
     settings = {
       default-cache-ttl = 7200;
     };
+  };
+
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      ubuntu-sans
+    ];
   };
 
   # List services that you want to enable:
