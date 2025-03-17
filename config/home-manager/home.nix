@@ -15,6 +15,9 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -43,7 +46,7 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-    #".tmux.conf".source = homerc/tmux.conf;
+    ".tmux.conf".source = /source/gits/dotfiles/homerc/tmux.conf;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
@@ -114,6 +117,29 @@
       switch-to-application-3 = [];
       switch-to-application-4 = [];
     };
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Bin Li";
+    userEmail = "binli@ubuntu.com";
+    signing = {
+      key = "F6FD6C84E7A3C2E8";
+      signByDefault = true;
+    };
+  };
+  programs.vim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      auto-pairs
+      copilot-vim
+      vim-dirdiff
+      vim-surround
+    ];
+    settings = { ignorecase = true; };
+    extraConfig = ''
+      set mouse=
+    '';
   };
 
   programs.bash = {
