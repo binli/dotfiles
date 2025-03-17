@@ -87,7 +87,6 @@
     description = "binli";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  thunderbird
     ];
   };
 
@@ -101,26 +100,29 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     gcr
+    gh
+    gh-copilot
     gimp
     google-chrome
-    neovim
     pciutils
     python3Full
     ripgrep
+    mpv
+    smplayer
     tmux
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
   ];
   programs.git.enable = true;
   programs.git.prompt.enable = true;
+  programs.neovim.enable = true;
+  programs.vim.enable = true;
 
   #programs.geary.enable = false;
-  environment.gnome.excludePackages = [
-    pkgs.totem
-    pkgs.geary
-    pkgs.gnome-calendar
-    pkgs.gnome-tour
-    pkgs.gnome-maps
+  environment.gnome.excludePackages = with pkgs; [
+    totem
+    geary
+    gnome-calendar
+    gnome-tour
+    gnome-maps
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
