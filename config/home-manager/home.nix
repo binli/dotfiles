@@ -127,6 +127,9 @@
       key = "F6FD6C84E7A3C2E8";
       signByDefault = true;
     };
+    aliases = {
+      st = "status";
+    };
   };
   programs.vim = {
     enable = true;
@@ -136,9 +139,21 @@
       vim-dirdiff
       vim-surround
     ];
-    settings = { ignorecase = true; };
+    settings = {
+      backupdir = ["/tmp/vimbk/"];
+      expandtab = true;
+      ignorecase = true;
+      mouse = null;
+      shiftwidth = 4;
+      undodir = ["/tmp/vimbk/"];
+    };
     extraConfig = ''
-      set mouse=
+      set encoding=utf-8
+      set list listchars=tab:→\ ,trail:·
+      let g:DirDiffExcludes = ".bzr,.git,.*.swp,*.in,cscope.*,*~,*.lo"
+      if has("autocmd")
+        au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+      endif
     '';
   };
 
