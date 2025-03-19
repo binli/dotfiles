@@ -72,7 +72,7 @@
   #  /etc/profiles/per-user/binli/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "vim";
   };
 
   dconf.settings = {
