@@ -99,12 +99,14 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    debian-devscripts
     gcc14
     gcr
     gh
     gh-copilot
     gimp
     google-chrome
+    gnumake
     pciutils
     python3Full
     ripgrep
