@@ -142,7 +142,6 @@
     settings = {
       backupdir = ["/tmp/vimbk/"];
       expandtab = true;
-      ignorecase = true;
       mouse = null;
       shiftwidth = 4;
       undodir = ["/tmp/vimbk/"];
@@ -164,6 +163,10 @@
       e = "exit";
       ".." = "cd ..";
       tmux = "tmux attach";
+    };
+    sessionVariables = {
+      DEBEMAIL="binli@ubuntu.com";
+      DEBFULLNAME="Bin Li";
     };
     bashrcExtra =
     ''
