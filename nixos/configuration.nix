@@ -84,7 +84,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.binli = {
     isNormalUser = true;
-    description = "binli";
+    description = "Bin Li";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     ];
@@ -100,6 +100,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     debian-devscripts
+    dpkg
+    jq
     gcc14
     gcr
     gh
@@ -166,6 +168,8 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+
+  hardware.bluetooth.enable = false;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.graphics.enable = true;
