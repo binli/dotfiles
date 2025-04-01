@@ -99,8 +99,11 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    docker
     debian-devscripts
     dpkg
+    fakeroot
+    file
     jq
     gcc14
     gcr
