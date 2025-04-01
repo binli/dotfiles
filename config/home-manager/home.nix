@@ -76,12 +76,12 @@
   };
 
   dconf.settings = {
-    #"org/gnome/desktop/calendar" = {
-    #  show-weekdate = true;
-    #};
+    "org/gnome/desktop/calendar" = {
+      show-weekdate = true;
+    };
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
-      clock-show-weekdate = true;
+      clock-show-weekday = true;
       show-battery-percentage = true;
     };
     "org/gnome/desktop/session" = {
