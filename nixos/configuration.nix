@@ -174,6 +174,8 @@
   hardware.bluetooth.enable = false;
   virtualisation.docker.enable = true;
 
+  services.udisks2.mountOnMedia = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.graphics.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
