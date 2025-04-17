@@ -139,6 +139,9 @@ init_gnome()
     gsettings set org.gnome.shell.keybindings switch-to-application-2 []
     gsettings set org.gnome.shell.keybindings switch-to-application-3 []
     gsettings set org.gnome.shell.keybindings switch-to-application-4 []
+
+    gsettings set org.gnome.desktop.privacy remember-recent-files false
+
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
@@ -154,6 +157,7 @@ init_gnome()
     gsettings set org.gnome.mutter.keybindings toggle-tiled-right "['<Super>Right']"
 
     gsettings set org.gnome.settings-daemon.plugins.power idle-dim true
+
 }
 
 stop_aptupdate()
