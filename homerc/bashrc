@@ -59,7 +59,8 @@ fi
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     #PS1='${debian_chroot:+($debian_chroot)}\[\e[32;1m\]\u\[\e[0m\]@\[\e[34;1m\]\[\e[33;1m\]g\[\e[0m\]n\[\e[0m\]\[\e[31;1m\]o\[\e[0m\]\[\e[33;1m\]m\[\e[0m\]\[\e[32;1m\]e.\[\e[0m\]\[\e[34;1m\]o\[\e[0m\]\[\e[32;1m\]r\[\e[0m\]\[\e[31;1m\]g\[\e[0m\]:\[\e[34;1m\]\w\[\e[0m\]\[\e[35;1m\]$(__git_ps1)\[\e[0m\]$ '
-    PS1='${debian_chroot:+($debian_chroot)}\[\e[32;1m\]\u\[\e[0m\]@\[\e[34;1m\]\[\e[33;1m\]Ca\[\e[0m\]n\[\e[0m\]\[\e[31;1m\]o\[\e[0m\]\[\e[33;1m\]n\[\e[0m\]\[\e[32;1m\]i\[\e[0m\]\[\e[34;1m\]c\[\e[0m\]\[\e[32;1m\]a\[\e[0m\]\[\e[31;1m\]l\[\e[0m\]:\[\e[34;1m\]\w\[\e[0m\]\[\e[35;1m\]$(__git_ps1)\[\e[0m\]$ '
+    #PS1='${debian_chroot:+($debian_chroot)}\[\e[32;1m\]\u\[\e[0m\]@\[\e[34;1m\]\[\e[33;1m\]Ca\[\e[0m\]n\[\e[0m\]\[\e[31;1m\]o\[\e[0m\]\[\e[33;1m\]n\[\e[0m\]\[\e[32;1m\]i\[\e[0m\]\[\e[34;1m\]c\[\e[0m\]\[\e[32;1m\]a\[\e[0m\]\[\e[31;1m\]l\[\e[0m\]:\[\e[34;1m\]\w\[\e[0m\]\[\e[35;1m\]$(__git_ps1)\[\e[0m\]$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\e[32;1m\]\u\[\e[0m\]@\[\e[34;1m\]\[\e[33;1m\]u\[\e[0m\]b\[\e[0m\]\[\e[31;1m\]u\[\e[0m\]\[\e[33;1m\]n\[\e[0m\]\[\e[32;1m\]t\[\e[0m\]\[\e[34;1m\]u\[\e[0m\]\[\e[32;1m\].\[\e[0m\]\[\e[32;1m\]com\[\e[0m\]:\[\e[34;1m\]\w\[\e[0m\]\[\e[35;1m\]$(__git_ps1)\[\e[0m\]$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -122,7 +123,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export DEBEMAIL="bin.li@canonical.com"
+export DEBEMAIL="binli@ubuntu.com"
 export DEBFULLNAME="Bin Li"
 
 # set PATH so it includes user's private bin if it exists
@@ -136,5 +137,3 @@ fi
 if [ ! -d "/tmp/nvimbk" ] ; then
   mkdir -p /tmp/nvimbk
 fi
-
-export LAUNCHPAD_TOKEN="1pm6vhjV9Bd4q87lts2M:fHw2gl1PLsjXdswb3k6RwZxB5h5sR85NsHRS85JblKPfxqV1QW89H65khzvLkNzgtw3lRTjT0Q9Bkfqs:System-wide: Ubuntu (binli Cheetah3-15)"
