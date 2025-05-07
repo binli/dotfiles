@@ -127,6 +127,7 @@
     gimp
     google-chrome
     gnumake
+    oath-toolkit
     pciutils
     python3Full
     ripgrep
