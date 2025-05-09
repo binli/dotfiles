@@ -15,6 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {
     enable = true;
+    default = "2";
     device = "nodev";
     efiSupport = true;
     useOSProber = true;
@@ -118,6 +119,7 @@
     file
     jq
     google-chrome
+    oath-toolkit
     pciutils
     python3Full
     ripgrep
@@ -168,6 +170,8 @@
 
   hardware.bluetooth.enable = false;
   virtualisation.docker.enable = true;
+
+  services.udisks2.mountOnMedia = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.graphics.enable = true;

@@ -71,6 +71,10 @@
   #
   #  /etc/profiles/per-user/binli/etc/profile.d/hm-session-vars.sh
   #
+  home.sessionPath = [
+    "$HOME/bin"
+  ];
+
   home.sessionVariables = {
     EDITOR = "vim";
   };
