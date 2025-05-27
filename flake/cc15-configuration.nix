@@ -118,12 +118,14 @@
   environment.systemPackages = with pkgs; [
     file
     jq
+    gnomeExtensions.kimpanel
     google-chrome
     oath-toolkit
     pciutils
     python3Full
     ripgrep
     mpv
+    qv2ray
     smplayer
     tmux
   ];
