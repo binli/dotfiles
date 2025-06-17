@@ -121,6 +121,11 @@
       switch-to-application-3 = [];
       switch-to-application-4 = [];
     };
+    "org/gnome/shell" = {
+      enabled-extensions = [
+        "kimpanel@kde.org"
+      ];
+    };
   };
 
   programs.git = {

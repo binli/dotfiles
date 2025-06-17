@@ -116,10 +116,12 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    black
     file
     jq
     gnomeExtensions.kimpanel
     google-chrome
+    gnumake
     oath-toolkit
     pciutils
     python3Full
@@ -181,7 +183,9 @@
   hardware.nvidia = {
     open = false;
     nvidiaSettings = true;
+    #package = config.boot.kernelPackages.nvidiaPackages.production;
     #package = config.boot.kernelPackages.nvidiaPackages.stable;
+    #package = config.boot.kernelPackages.nvidiaPackages.beta;
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       version = "570.133.07";
       sha256_64bit = "sha256-LUPmTFgb5e9VTemIixqpADfvbUX1QoTT2dztwI3E3CY=";
