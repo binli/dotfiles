@@ -156,6 +156,13 @@
     };
   };
 
+  fonts = {
+    enableDefaultPackages = true;
+    packages = with pkgs; [
+      noto-fonts-cjk-sans
+    ];
+  };
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
