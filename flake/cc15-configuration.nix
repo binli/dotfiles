@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub = {
     enable = true;
-    default = "2";
+    default = "0";
     device = "nodev";
     efiSupport = true;
     useOSProber = true;
@@ -115,11 +115,15 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = let
+    pkgs-stable = import inputs.nixpkgs {inherit (pkgs) system;};
+    qv2ray = pkgs-stable.qv2ray;
+  in with pkgs; [
     black
     file
     jq
     gnomeExtensions.kimpanel
+    gnomeExtensions.status-icons
     google-chrome
     gnumake
     oath-toolkit
@@ -183,16 +187,16 @@
   hardware.nvidia = {
     open = false;
     nvidiaSettings = true;
-    #package = config.boot.kernelPackages.nvidiaPackages.production;
+    package = config.boot.kernelPackages.nvidiaPackages.production;
     #package = config.boot.kernelPackages.nvidiaPackages.stable;
     #package = config.boot.kernelPackages.nvidiaPackages.beta;
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "570.133.07";
-      sha256_64bit = "sha256-LUPmTFgb5e9VTemIixqpADfvbUX1QoTT2dztwI3E3CY=";
-      sha256_aarch64 = "sha256-yTovUno/1TkakemRlNpNB91U+V04ACTMwPEhDok7jI0=";
-      openSha256 = "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
-      settingsSha256 = "sha256-XMk+FvTlGpMquM8aE8kgYK2PIEszUZD2+Zmj2OpYrzU=";
-      persistencedSha256 = "sha256-G1V7JtHQbfnSRfVjz/LE2fYTlh9okpCbE4dfX9oYSg8=";
-    };
+    #package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    #  version = "570.133.07";
+    #  sha256_64bit = "sha256-LUPmTFgb5e9VTemIixqpADfvbUX1QoTT2dztwI3E3CY=";
+    #  sha256_aarch64 = "sha256-yTovUno/1TkakemRlNpNB91U+V04ACTMwPEhDok7jI0=";
+    #  openSha256 = "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
+    #  settingsSha256 = "sha256-XMk+FvTlGpMquM8aE8kgYK2PIEszUZD2+Zmj2OpYrzU=";
+    #  persistencedSha256 = "sha256-G1V7JtHQbfnSRfVjz/LE2fYTlh9okpCbE4dfX9oYSg8=";
+    #};
   };
 }

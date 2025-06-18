@@ -124,6 +124,7 @@
     "org/gnome/shell" = {
       enabled-extensions = [
         "kimpanel@kde.org"
+        "status-icons@gnome-shell-extensions.gcampax.github.com"
       ];
     };
   };
