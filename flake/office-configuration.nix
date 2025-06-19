@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -115,7 +115,12 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; let
+    python3 = python3Full.withPackages (ps: with ps; [
+      requests
+    ]);
+  in [
+    inputs.bughamster.packages.${pkgs.system}.default
     black
     file
     jq
@@ -127,7 +132,8 @@
     gnumake
     oath-toolkit
     pciutils
-    python3Full
+    python3
+    read-edid
     ripgrep
     mpv
     qv2ray
