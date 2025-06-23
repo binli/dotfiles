@@ -133,6 +133,7 @@
     oath-toolkit
     pciutils
     python3
+    rclone
     read-edid
     ripgrep
     mpv
