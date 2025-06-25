@@ -133,6 +133,7 @@
     oath-toolkit
     pciutils
     python3
+    quilt
     rclone
     read-edid
     ripgrep
