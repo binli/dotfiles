@@ -122,6 +122,7 @@
   in [
     inputs.bughamster.packages.${pkgs.system}.default
     black
+    debian-devscripts
     file
     jq
     gcc14
