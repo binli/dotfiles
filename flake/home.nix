@@ -140,6 +140,13 @@
     aliases = {
       st = "status";
     };
+    extraConfig = {
+      url = {
+        "git+ssh://binli@git.launchpad.net/ubuntu/+source/" = {
+          insteadOf = "u:";
+        };
+      };
+    };
   };
   programs.vim = {
     enable = true;
