@@ -46,5 +46,17 @@
         }
       ];
     };
+    # HP computer
+    nixosConfigurations.warthog = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./warthog-configuration.nix
+        inputs.home-manager.nixosModules.default
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.users.binli = ./home.nix;
+        }
+      ];
+    };
   };
 }
