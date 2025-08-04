@@ -185,9 +185,17 @@
       DEBEMAIL="binli@ubuntu.com";
       DEBFULLNAME="Bin Li";
     };
+    historyIgnore = [
+      "ls"
+      "cd"
+      "exit"
+    ];
     bashrcExtra =
     ''
         PS1='\[\e[32;1m\]\u\[\e[0m\]@\[\e[34;1m\]\[\e[33;1m\]Ca\[\e[0m\]n\[\e[0m\]\[\e[31;1m\]o\[\e[0m\]\[\e[33;1m\]n\[\e[0m\]\[\e[32;1m\]i\[\e[0m\]\[\e[34;1m\]c\[\e[0m\]\[\e[32;1m\]a\[\e[0m\]\[\e[31;1m\]l\[\e[0m\]:\[\e[34;1m\]\w\[\e[0m\]\[\e[35;1m\]$(__git_ps1)\[\e[0m\]$ '
+        if [ ! -d "/tmp/vimbk" ] ; then
+          mkdir -p /tmp/vimbk /tmp/nvimbk
+        fi
     '';
   };
   # Let Home Manager install and manage itself.
