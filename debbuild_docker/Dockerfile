@@ -1,0 +1,36 @@
+FROM ubuntu:24.04
+ARG USERNAME=ubuntu
+
+RUN --mount=type=secret,id=ubuntu \
+    chpasswd < /run/secrets/ubuntu
+
+RUN mkdir -p /etc/sudoers.d/ \
+    && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/ubuntu \
+    && chmod 0440 /etc/sudoers.d/ubuntu
+
+
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update
+RUN apt-get -y install devscripts debhelper dh-modaliases vim
+RUN apt-get clean
+
+RUN mkdir -p /home/${USERNAME}/.ssh \
+    && mkdir -p /home/${USERNAME}/.gnupg \
+    && chmod 700 /home/${USERNAME}/.ssh \
+    && chmod 700 /home/${USERNAME}/.gnupg
+
+RUN mkdir -p /source \
+    && chown -R $USERNAME:$USERNAME /source
+
+USER $USERNAME
+
+RUN git config --global user.email "binli@ubuntu.com"
+RUN git config --global user.name "Bin Li"
+ENV DEBEMAIL="binli@ubuntu.com"
+ENV DEBFULLNAME="Bin Li"
+
+VOLUME /home/${USERNAME}/.ssh
+VOLUME /home/${USERNAME}/.gnupg
+VOLUME /source
+WORKDIR /source
+CMD ["bash"]
