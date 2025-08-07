@@ -28,6 +28,7 @@ RUN git config --global user.email "binli@ubuntu.com"
 RUN git config --global user.name "Bin Li"
 ENV DEBEMAIL="binli@ubuntu.com"
 ENV DEBFULLNAME="Bin Li"
+ENV USER="binli"
 
 VOLUME /home/${USERNAME}/.ssh
 VOLUME /home/${USERNAME}/.gnupg
