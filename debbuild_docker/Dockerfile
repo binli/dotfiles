@@ -1,4 +1,7 @@
-FROM ubuntu:24.04
+ARG UBUNTU_VERSION=24.04
+
+FROM ubuntu:${UBUNTU_VERSION}
+
 ARG USERNAME=ubuntu
 
 RUN --mount=type=secret,id=ubuntu \
