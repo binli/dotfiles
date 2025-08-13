@@ -161,6 +161,7 @@
       expandtab = true;
       mouse = null;
       shiftwidth = 4;
+      tabstop = 4;
       undodir = ["/tmp/vimbk/"];
     };
     extraConfig = ''
@@ -196,6 +197,17 @@
         if [ ! -d "/tmp/vimbk" ] ; then
           mkdir -p /tmp/vimbk /tmp/nvimbk
         fi
+    '';
+  };
+  programs.ssh = {
+    enable = true;
+    extraConfig =
+    ''
+        Host *
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+        Host *.local
+          User u
     '';
   };
   # Let Home Manager install and manage itself.
