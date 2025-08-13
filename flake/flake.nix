@@ -13,10 +13,10 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    bughamster = {
-      url = "git+ssh://git@github.com/canonical/bughamster?ref=jira-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #bughamster = {
+    #  url = "git+ssh://git@github.com/canonical/bughamster?ref=jira-nix";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: {
