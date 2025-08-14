@@ -201,13 +201,13 @@
   };
   programs.ssh = {
     enable = true;
+    userKnownHostsFile = "/dev/null";
     extraConfig =
     ''
-        Host *
-          StrictHostKeyChecking no
-          UserKnownHostsFile /dev/null
-        Host *.local
-          User u
+    Host *
+      StrictHostKeyChecking no
+    Host *.local
+      User u
     '';
   };
   # Let Home Manager install and manage itself.
