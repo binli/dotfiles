@@ -204,8 +204,7 @@
     userKnownHostsFile = "/dev/null";
     extraConfig =
     ''
-    Host *
-      StrictHostKeyChecking no
+    StrictHostKeyChecking no
     Host *.local
       User u
     '';
