@@ -122,6 +122,7 @@
   in [
     black
     debian-devscripts
+    edid-decode
     file
     jq
     gcc14
@@ -135,7 +136,6 @@
     python3
     quilt
     rclone
-    read-edid
     ripgrep
     mpv
     qv2ray
