@@ -123,7 +123,6 @@
     black
     debian-devscripts
     edid-decode
-    eog
     file
     jq
     gcc14
