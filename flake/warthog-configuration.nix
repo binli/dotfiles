@@ -15,6 +15,9 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "warthog"; # Define your hostname.
+  networking.hosts = {
+    "10.106.4.112" = [ "mock.local" ];
+  }; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -124,6 +127,7 @@
     debian-devscripts
     edid-decode
     file
+    jenkins-job-builder
     jq
     gcc14
     gcr
@@ -132,6 +136,7 @@
     google-chrome
     gnumake
     oath-toolkit
+    parted
     pciutils
     python3
     quilt
