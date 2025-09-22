@@ -142,6 +142,7 @@
     quilt
     rclone
     ripgrep
+    shellcheck
     mpv
     qv2ray
     smplayer
