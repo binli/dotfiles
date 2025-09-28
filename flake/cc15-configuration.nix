@@ -127,13 +127,16 @@
     google-chrome
     gnumake
     oath-toolkit
+    parted
     pciutils
-    python3Full
+    python3
+    quilt
     ripgrep
     mpv
     qv2ray
     smplayer
     tmux
+    transmission_4-gtk
   ];
 
   environment.gnome.excludePackages = with pkgs; [
@@ -168,6 +171,9 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  # Enable fwupd for firmware updates.
+  services.fwupd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
