@@ -14,7 +14,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "numbat"; # Define your hostname.
+  networking.hostName = "Raccoon"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -115,12 +115,11 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; let
-    python3 = python3Full.withPackages (ps: with ps; [
-      requests
-    ]);
-  in [
-    inputs.bughamster.packages.${pkgs.system}.default
+  environment.systemPackages = let
+    pkgs-stable = import inputs.nixpkgs {inherit (pkgs) system;};
+    qv2ray = pkgs-stable.qv2ray;
+  in with pkgs; [
+    #inputs.bughamster.packages.${pkgs.system}.default
     black
     debian-devscripts
     file
@@ -189,7 +188,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.05"; # Did you read the comment?
+  system.stateVersion = "25.11"; # Did you read the comment?
 
   hardware.bluetooth.enable = false;
   virtualisation.docker.enable = true;

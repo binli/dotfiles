@@ -34,14 +34,15 @@
         }
       ];
     };
-    # Office computer, P16s Gen 3
-    nixosConfigurations.numbat = nixpkgs.lib.nixosSystem {
+    # Home computer, P1 Gen 7
+    nixosConfigurations.Raccoon = nixpkgs-unstable.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
         ./office-configuration.nix
-        inputs.home-manager.nixosModules.default
+        inputs.home-manager-unstable.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
+          #home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
           home-manager.users.binli = ./home.nix;
         }
       ];
