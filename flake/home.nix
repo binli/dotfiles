@@ -201,7 +201,7 @@
   };
   programs.ssh = {
     enable = true;
-    userKnownHostsFile = "/dev/null";
+    matchBlocks."*".userKnownHostsFile = "/dev/null";
     extraConfig =
     ''
     StrictHostKeyChecking no
