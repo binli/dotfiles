@@ -22,7 +22,8 @@
   outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: {
     # use "nixos", or your hostname as the name of the configuration
     # it's a better practice than "default" shown in the video
-    nixosConfigurations.quokka = nixpkgs-unstable.lib.nixosSystem {
+    # Home computer, P1 Gen 6, cc15
+    nixosConfigurations.raccoon = nixpkgs-unstable.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
         ./cc15-configuration.nix
