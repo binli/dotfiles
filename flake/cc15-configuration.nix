@@ -32,7 +32,8 @@
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "Asia/Shanghai";
+  #time.timeZone = "Asia/Shanghai";
+  services.automatic-timezoned.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -54,7 +55,7 @@
     enable = true;
     fcitx5.addons = with pkgs; [
        fcitx5-gtk             # alternatively, kdePackages.fcitx5-qt
-       fcitx5-chinese-addons  # table input method support
+       qt6Packages.fcitx5-chinese-addons  # table input method support
        fcitx5-nord            # a color theme
     ];
   };
