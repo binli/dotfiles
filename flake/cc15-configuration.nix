@@ -124,6 +124,7 @@
     file
     jq
     gimp
+    git-buildpackage
     gnomeExtensions.kimpanel
     gnomeExtensions.status-icons
     google-chrome
