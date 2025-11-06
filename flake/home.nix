@@ -131,14 +131,14 @@
 
   programs.git = {
     enable = true;
-    userName = "Bin Li";
-    userEmail = "binli@ubuntu.com";
+    settings = {
+      user.name = "Bin Li";
+      user.email = "binli@ubuntu.com";
+      alias.st = "status";
+    };
     signing = {
       key = "F6FD6C84E7A3C2E8";
       signByDefault = true;
-    };
-    aliases = {
-      st = "status";
     };
     extraConfig = {
       url = {
