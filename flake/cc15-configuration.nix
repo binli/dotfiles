@@ -121,6 +121,7 @@
     qv2ray = pkgs-stable.qv2ray;
   in with pkgs; [
     black
+    copilot-cli
     file
     jq
     gimp
