@@ -49,11 +49,11 @@
       ];
     };
     # HP computer
-    nixosConfigurations.warthog = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.warthog = nixpkgs-unstable.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
         ./warthog-configuration.nix
-        inputs.home-manager.nixosModules.default
+        inputs.home-manager-unstable.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.users.binli = ./home.nix;

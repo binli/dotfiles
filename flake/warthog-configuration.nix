@@ -51,7 +51,7 @@
     enable = true;
     fcitx5.addons = with pkgs; [
        fcitx5-gtk             # alternatively, kdePackages.fcitx5-qt
-       fcitx5-chinese-addons  # table input method support
+       qt6Packages.fcitx5-chinese-addons  # table input method support
        fcitx5-nord            # a color theme
     ];
   };
@@ -60,8 +60,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -118,12 +118,12 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; let
-    python3 = python3Full.withPackages (ps: with ps; [
-      requests
-    ]);
-  in [
+  environment.systemPackages = let
+    pkgs-stable = import inputs.nixpkgs {inherit (pkgs) system;};
+    qv2ray = pkgs-stable.qv2ray;
+  in with pkgs; [
     black
+    copilot-cli
     debian-devscripts
     edid-decode
     file
@@ -132,7 +132,9 @@
     gcc14
     gcr
     gimp
+    git-buildpackage
     gnomeExtensions.kimpanel
+    gnomeExtensions.status-icons
     google-chrome
     gnumake
     oath-toolkit
