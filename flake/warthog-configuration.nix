@@ -123,7 +123,7 @@
     qv2ray = pkgs-stable.qv2ray;
   in with pkgs; [
     black
-    copilot-cli
+    github-copilot-cli
     debian-devscripts
     edid-decode
     file
