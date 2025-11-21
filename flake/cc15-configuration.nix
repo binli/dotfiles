@@ -121,8 +121,9 @@
     qv2ray = pkgs-stable.qv2ray;
   in with pkgs; [
     black
-    copilot-cli
+    github-copilot-cli
     file
+    flowblade
     jq
     gimp
     git-buildpackage
@@ -130,6 +131,7 @@
     gnomeExtensions.status-icons
     google-chrome
     gnumake
+    libreoffice-fresh
     oath-toolkit
     parted
     pciutils
