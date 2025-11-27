@@ -27,6 +27,7 @@ run-questing: questing
 run-noble: noble
 	docker run -it --rm -v /work/init/ssh:/home/ubuntu/.ssh \
 		-v /work/init/gnupg:/home/ubuntu/.gnupg \
+		-v /work/init/launchpad.credentials.binli:/home/ubuntu/.launchpad.credentials \
 		-v /source:/source \
 		deb:noble bash
 
