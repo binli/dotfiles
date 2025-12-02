@@ -1,4 +1,4 @@
-ARG UBUNTU_VERSION=24.04
+ARG UBUNTU_VERSION=20.04
 
 FROM docker.m.daocloud.io/library/ubuntu:${UBUNTU_VERSION}
 
@@ -13,8 +13,8 @@ RUN mkdir -p /etc/sudoers.d/ \
 
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update --fix-missing
-RUN apt-get -y install devscripts debhelper dh-modaliases vim sudo ubuntu-dev-tools python3-jinja2
+RUN apt-get update
+RUN apt-get -y install vim bzr sudo
 RUN apt-get clean
 
 RUN mkdir -p /home/${USERNAME}/.ssh \
