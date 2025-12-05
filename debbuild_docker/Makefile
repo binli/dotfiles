@@ -28,6 +28,7 @@ run-noble: noble
 	docker run -it --rm -v /work/init/ssh:/home/ubuntu/.ssh \
 		-v /work/init/gnupg:/home/ubuntu/.gnupg \
 		-v /work/init/launchpad.credentials.binli:/home/ubuntu/launchpad.credentials \
+		-v /work/init/oem-scripts:/home/ubuntu/.config/oem-scripts \
 		-v /source:/source \
 		deb:noble bash
 
