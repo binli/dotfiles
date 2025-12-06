@@ -132,6 +132,10 @@
     git-buildpackage
     gnomeExtensions.kimpanel
     gnomeExtensions.status-icons
+    gnomeExtensions.desktop-cube
+    gnomeExtensions.burn-my-windows
+    gnomeExtensions.compiz-windows-effect
+    gnomeExtensions.moveclock
     google-chrome
     gnumake
     libreoffice-fresh
