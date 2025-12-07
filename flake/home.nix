@@ -122,10 +122,18 @@
       switch-to-application-4 = [];
     };
     "org/gnome/shell" = {
-      enabled-extensions = [
-        "kimpanel@kde.org"
-        "status-icons@gnome-shell-extensions.gcampax.github.com"
+      disable-user-extensions = false;
+      enabled-extensions = with pkgs.gnomeExtensions; [
+        kimpanel.extensionUuid
+        status-icons.extensionUuid
+        desktop-cube.extensionUuid
+        burn-my-windows.extensionUuid
+        compiz-windows-effect.extensionUuid
+        moveclock.extensionUuid
       ];
+    };
+    "org/gnome/shell/extensions/moveclock" = {
+      clock-before-statusmenu = true;
     };
   };
 

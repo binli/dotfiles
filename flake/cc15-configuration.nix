@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 {
   imports =
@@ -79,9 +79,33 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # Enable Fingerprint
+  services.fprintd.enable = true;
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  security.pam.services.login.fprintAuth = false;
+  security.pam.services.gdm-fingerprint = lib.mkIf (config.services.fprintd.enable) {
+    text = ''
+      auth       required                    pam_shells.so
+      auth       requisite                   pam_nologin.so
+      auth       requisite                   pam_faillock.so      preauth
+      auth       required                    ${pkgs.fprintd}/lib/security/pam_fprintd.so
+      auth       optional                    pam_permit.so
+      auth       required                    pam_env.so
+      auth       [success=ok default=1]      ${pkgs.gdm}/lib/security/pam_gdm.so
+      auth       optional                    ${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so
+
+      account    include                     login
+
+      password   required                    pam_deny.so
+
+      session    include                     login
+      session    optional                    ${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so auto_start
+    '';
+  };
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -130,12 +154,15 @@
     jq
     gimp
     git-buildpackage
-    gnomeExtensions.kimpanel
-    gnomeExtensions.status-icons
-    gnomeExtensions.desktop-cube
+    gnomeExtensions.blur-my-shell
     gnomeExtensions.burn-my-windows
     gnomeExtensions.compiz-windows-effect
+    gnomeExtensions.coverflow-alt-tab
+    gnomeExtensions.dash2dock-lite
+    gnomeExtensions.desktop-cube
+    gnomeExtensions.kimpanel
     gnomeExtensions.moveclock
+    gnomeExtensions.status-icons
     google-chrome
     gnumake
     libreoffice-fresh
@@ -152,6 +179,7 @@
     smplayer
     tmux
     transmission_4-gtk
+    usbutils
   ];
 
   environment.gnome.excludePackages = with pkgs; [
