@@ -141,6 +141,7 @@
     google-chrome
     gnumake
     libreoffice-fresh
+    nmap
     oath-toolkit
     parted
     pciutils
