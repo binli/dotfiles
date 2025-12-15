@@ -136,7 +136,14 @@
     gcr
     gimp
     git-buildpackage
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.burn-my-windows
+    gnomeExtensions.compiz-windows-effect
+    gnomeExtensions.coverflow-alt-tab
+    gnomeExtensions.dash2dock-lite
+    gnomeExtensions.desktop-cube
     gnomeExtensions.kimpanel
+    gnomeExtensions.moveclock
     gnomeExtensions.status-icons
     google-chrome
     gnumake
