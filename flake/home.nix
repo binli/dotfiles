@@ -47,6 +47,7 @@
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
     ".tmux.conf".source = ../homerc/tmux.conf;
+    ".gitconfig_ubuntu".source = ../homerc/gitconfig_ubuntu;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
@@ -141,13 +142,23 @@
     enable = true;
     settings = {
       user.name = "Bin Li";
-      user.email = "binli@ubuntu.com";
+      user.email = "libin3479@gmail.com";
       alias.st = "status";
     };
     signing = {
       key = "F6FD6C84E7A3C2E8";
       signByDefault = true;
     };
+    includes = [
+      {
+        condition = "gitdir:/source/ubuntu/";
+        path = "~/.gitconfig_ubuntu";
+      }
+      {
+        condition = "gitdir:/source/gits/canonical/";
+        path = "~/.gitconfig_ubuntu";
+      }
+    ];
     extraConfig = {
       url = {
         "git+ssh://binli@git.launchpad.net/ubuntu/+source/" = {
@@ -156,6 +167,7 @@
       };
     };
   };
+
   programs.vim = {
     enable = true;
     plugins = with pkgs.vimPlugins; [
