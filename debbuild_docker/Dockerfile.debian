@@ -1,0 +1,41 @@
+ARG DEBIAN_VERSION=experimental
+
+FROM library/debian:${DEBIAN_VERSION}
+
+ARG USERNAME=ubuntu
+
+RUN useradd -m -s /bin/bash $USERNAME
+RUN --mount=type=secret,id=ubuntu \
+    chpasswd < /run/secrets/ubuntu
+
+RUN mkdir -p /etc/sudoers.d/ \
+    && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/ubuntu \
+    && chmod 0440 /etc/sudoers.d/ubuntu
+
+
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update --fix-missing
+RUN apt-get -y install devscripts debhelper-compat vim sudo autoconf automake git gnupg2 build-essential lintian
+RUN apt-get clean
+
+RUN mkdir -p /home/${USERNAME}/.ssh \
+    && mkdir -p /home/${USERNAME}/.gnupg \
+    && chmod 700 /home/${USERNAME}/.ssh \
+    && chmod 700 /home/${USERNAME}/.gnupg
+
+RUN mkdir -p /source \
+    && chown -R $USERNAME:$USERNAME /source
+
+USER $USERNAME
+
+RUN git config --global user.email "libin3479@gmail.com"
+RUN git config --global user.name "Bin Li"
+ENV DEBEMAIL="libin3479@gmail.com"
+ENV DEBFULLNAME="Bin Li"
+ENV USER="binli"
+
+VOLUME /home/${USERNAME}/.ssh
+VOLUME /home/${USERNAME}/.gnupg
+VOLUME /source
+WORKDIR /source
+CMD ["bash"]
