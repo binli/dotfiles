@@ -14,7 +14,7 @@ RUN mkdir -p /etc/sudoers.d/ \
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
-RUN apt-get -y install vim bzr sudo
+RUN apt-get -y install vim bzr sudo python3-setuptools python3-sphinx
 RUN apt-get clean
 
 RUN mkdir -p /home/${USERNAME}/.ssh \
