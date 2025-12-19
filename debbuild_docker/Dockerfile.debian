@@ -14,9 +14,10 @@ RUN mkdir -p /etc/sudoers.d/ \
 
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update --fix-missing
-RUN apt-get -y install devscripts debhelper-compat vim sudo autoconf automake git gnupg2 build-essential lintian
-RUN apt-get clean
+RUN sed -i 's#://deb.debian.org#://mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list.d/* \
+    && apt-get update --fix-missing \
+    && apt-get -y install devscripts debhelper-compat vim sudo autoconf automake git gnupg2 build-essential lintian autoconf-archive gtk-doc-tools \
+    && apt-get clean
 
 RUN mkdir -p /home/${USERNAME}/.ssh \
     && mkdir -p /home/${USERNAME}/.gnupg \

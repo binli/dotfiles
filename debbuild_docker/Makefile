@@ -54,6 +54,7 @@ run-debian: debian
 	docker run -it --rm -v /work/init/ssh:/home/ubuntu/.ssh \
 		-v /work/init/gnupg:/home/ubuntu/.gnupg \
 		-v /source:/source \
+		-v ../homerc/dput.cf:/home/ubuntu/.dput.cf \
 		deb:debian bash
 
 clean:
