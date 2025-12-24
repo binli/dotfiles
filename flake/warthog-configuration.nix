@@ -151,6 +151,7 @@
     google-chrome
     gnumake
     libreoffice-fresh
+    nix-prefetch-github
     nmap
     oath-toolkit
     parted
