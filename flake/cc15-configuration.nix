@@ -152,6 +152,7 @@
   in with pkgs; [
     black
     github-copilot-cli
+    debian-devscripts
     file
     flowblade
     jq
@@ -169,6 +170,7 @@
     google-chrome
     gnumake
     libreoffice-fresh
+    nix-prefetch-github
     oath-toolkit
     parted
     pciutils
@@ -180,7 +182,6 @@
     mpv
     qv2ray
     smplayer
-    tmux
     transmission_4-gtk
     usbutils
   ];

@@ -164,7 +164,6 @@
     mpv
     qv2ray
     smplayer
-    tmux
   ];
 
   environment.gnome.excludePackages = with pkgs; [
