@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Restore the rc and config files quickly
 
 RCDIR=$PWD/homerc

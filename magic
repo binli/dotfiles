@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# Backup and restore the homerc and config files quickly
+#
+RC_FILELIST="bashrc vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
+CONFIG_FILELIST="jenkins_job rclone oem-scripts"
+
+BACKUP=$1
+BD="backup-$(whoami)"
+if [ -z "$BACKUP" ]; then
+    echo "Usage: $0 backup|restore"
+    exit 1
+fi
+
+if [ "$BACKUP" = "backup" ]; then
+    echo "Start backing up rc and config files..."
+    backup()
+else
+    echo "Start restoring rc and config files..."
+    if [ ! -d "$BD" ]; then
+        echo "Backup directory $BD does not exist. Cannot restore."
+        exit 1
+    fi
+    restore()
+fi
+
+backup()
+{
+    # Make the backup dir with the current username
+    mkdir -p "$BD"
+    mkdir -p "$BD"/config
+    mkdir -p "$BD"/homerc
+    for rcfile in $RC_FILELIST
+    do
+        dotrc=$HOME/.$rcfile
+        if [ -e $dotrc ]; then
+            echo -e "Backing up $dotrc..."
+            cp -r $dotrc "$BD"/homerc/
+        fi
+    done
+    for conffile in $CONFIG_FILELIST
+    do
+        homeconf=$HOME/.config/$conffile
+        if [ -e $homeconf ]; then
+            echo -e "Backing up $homeconf..."
+            cp -r $homeconf "$BD"/config/
+        fi
+    done
+    echo "Backup completed. Backup directory: $BD"
+}
+
+restore()
+{
+    RCDIR=$PWD/"$BD"/homerc
+    CONFDIR=$PWD/"$BD"/config
+
+    if [ -d $RCDIR ]; then
+        RC_LIST=`ls $RCDIR`
+    fi
+    if [ -d $CONFDIR ]; then
+        CONFIG_LIST=`ls $CONFDIR`
+    fi
+
+    for rcfile in $RC_LIST
+    do
+        dotrc=$HOME/.$rcfile
+        echo -e "Restoring $dotrc..."
+        if [ -e $dotrc -a ! -L $dotrc ]; then
+            echo -e "Backing up existing $dotrc to $dotrc.bak"
+            mv $dotrc $dotrc.bak
+        fi
+        echo -e "Creating symlink for $dotrc..."
+        ln -sf $RCDIR/$rcfile $dotrc
+    done
+
+    for conffile in $CONFIG_LIST
+    do
+        homeconf=$HOME/.config/$conffile
+        if [ -d $homeconf -a ! -L $homeconf ]; then
+            echo -e "Backing up existing $homeconf to $homeconf.bak"
+            mv $homeconf $homeconf.bak
+        fi
+        echo -e "Creating symlink for $homeconf..."
+        ln -sf $PWD/"$BD"/config/$conffile $homeconf
+    done
+}
