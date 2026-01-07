@@ -182,6 +182,11 @@ restore_dconf()
 
 init_firefox()
 {
+    # Remove the snap version of firefox if it exists
+    sudo umount /var/snap/firefox/common/host-hunspell
+    snap remove firefox --purge
+    sudo apt purge -y firefox
+
     if [ ! -e /etc/apt/preferences.d/99mozillateam ]; then
         sudo add-apt-repository ppa:mozillateam/ppa -y
         cat > 99mozillateam << EOF
@@ -192,9 +197,6 @@ EOF
         sudo mv 99mozillateam /etc/apt/preferences.d/
         sudo apt install firefox -y
     fi
-    # Remove the snap version of firefox if it exists
-    sudo umount /var/snap/firefox/common/host-hunspell
-    snap remove firefox --purge
 }
 
 init_chrome()
