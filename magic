@@ -10,7 +10,7 @@ usage()
     echo "  pkgs     - Restore installed packages from backup"
     echo "  dconf    - Restore gnome dconf settings from backup"
     echo "  chrome   - Install google-chrome browser"
-    echo "  firefox  - Install firefox browser(non-snap)"
+    echo "  firefox  - Install latest firefox browser(non-snap), snap version will be removed"
 }
 
 RC_FILELIST="bashrc vim vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
@@ -176,6 +176,9 @@ EOF
         sudo mv 99mozillateam /etc/apt/preferences.d/
         sudo apt install firefox -y
     fi
+    # Remove the snap version of firefox if it exists
+    sudo umount /var/snap/firefox/common/host-hunspell
+    snap remove firefox --purge
 }
 
 init_chrome()
