@@ -4,14 +4,16 @@
 
 usage()
 {
-    echo "Usage: $0 backup|rconfig|pkgs|dconf"
+    echo "Usage: $0 backup|rconfig|pkgs|dconf|chrome|firefox"
     echo "  backup   - Backup homerc and config files, installed package list, and gnome dconf settings"
     echo "  rconfig  - Restore homerc and config files from backup"
     echo "  pkgs     - Restore installed packages from backup"
     echo "  dconf    - Restore gnome dconf settings from backup"
+    echo "  chrome   - Install google-chrome browser"
+    echo "  firefox  - Install firefox browser(non-snap)"
 }
 
-RC_FILELIST="bashrc vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
+RC_FILELIST="bashrc vim vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
 CONFIG_FILELIST="jenkins_job rclone oem-scripts"
 
 BACKUP=$1
@@ -39,7 +41,7 @@ save_package_list()
         source /etc/os-release
         case $ID in
             ubuntu|debian)
-                dpkg --get-selections | awk '{print $1}' > "$BD"/package-list.txt
+                dpkg --get-selections | awk '{print $1}' > "$BD"/ubuntu_pkg.list
                 echo -e "\e[32mOK\e[0m"
                 echo -e "\e[31mNOTE:\e[0m Please review the $BD/package-list.txt and remove any unwanted packages before restoring.\n"
                 ;;
@@ -136,7 +138,7 @@ restore_packages()
         . /etc/os-release
         case $ID in
             ubuntu|debian)
-                xargs -a "$BD"/package-list.txt sudo apt-get install -y
+                xargs -a "$BD"/ubuntu_pkg.list sudo apt-get install -y
                 ;;
             fedora|centos|rhel)
                 xargs -a "$BD"/package-list.txt sudo dnf install -y
@@ -162,6 +164,31 @@ restore_dconf()
     dconf load / < "$BD"/dconf-settings.txt
 }
 
+init_firefox()
+{
+    if [ ! -e /etc/apt/preferences.d/99mozillateam ]; then
+        sudo add-apt-repository ppa:mozillateam/ppa -y
+        cat > 99mozillateam << EOF
+Package: *
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 900
+EOF
+        sudo mv 99mozillateam /etc/apt/preferences.d/
+        sudo apt install firefox -y
+    fi
+}
+
+init_chrome()
+{
+    if [ ! -e /etc/apt/sources.list.d/google-chrome.list ]; then
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv  78BD65473CB3BD13
+        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /tmp/google-chrome.list
+        sudo mv /tmp/google-chrome.list /etc/apt/sources.list.d/
+        sudo apt update
+        sudo apt install -y google-chrome-stable
+    fi
+}
+
 if [ "$BACKUP" = "backup" ]; then
     echo "Start backing up rc and config files..."
     backup_rconfig
@@ -179,6 +206,12 @@ elif [ "$BACKUP" = "dconf" ]; then
 elif [ "$BACKUP" = "rconfig" ]; then
     echo "Start restoring rc and config files..."
     restore_rconfig
+elif [ "$BACKUP" = "chrome" ]; then
+    echo "Start installing google-chrome..."
+    init_chrome
+elif [ "$BACKUP" = "firefox" ]; then
+    echo "Start installing firefox(non-snap)..."
+    init_chrome
 else
     usage
     exit 1
