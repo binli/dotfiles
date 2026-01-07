@@ -3,84 +3,182 @@
 #
 RC_FILELIST="bashrc vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
 CONFIG_FILELIST="jenkins_job rclone oem-scripts"
+usage()
+{
+    echo "Usage: $0 backup|rconfig|pkgs|dconf"
+    echo "  backup   - Backup homerc and config files, installed package list, and gnome dconf settings"
+    echo "  rconfig  - Restore homerc and config files from backup"
+    echo "  pkgs     - Restore installed packages from backup"
+    echo "  dconf    - Restore gnome dconf settings from backup"
+}
 
 BACKUP=$1
 BD="backup-$(whoami)"
 if [ -z "$BACKUP" ]; then
-    echo "Usage: $0 backup|restore"
+    usage
     exit 1
+else
+    mkdir -p "$BD"
 fi
 
-backup()
+dump_gnome_dconf()
+{
+    # Dump gnome dconf settings to a file
+    dconf dump / > "$BD"/dconf-settings.txt
+    echo -e "\e[32mOK\e[0m"
+    echo -e "\e[31mNOTE:\e[0m Please review the $BD/dconf-settings.txt and remove any unwanted settings before restoring.\n"
+}
+
+save_package_list()
+{
+    # From /etc/os-release, determine the package manager and get the installed package list
+    if [ -f /etc/os-release ]; then
+        # shellcheck disable=SC1091
+        source /etc/os-release
+        case $ID in
+            ubuntu|debian)
+                dpkg --get-selections | awk '{print $1}' > "$BD"/package-list.txt
+                echo -e "\e[32mOK\e[0m"
+                echo -e "\e[31mNOTE:\e[0m Please review the $BD/package-list.txt and remove any unwanted packages before restoring.\n"
+                ;;
+            fedora|centos|rhel)
+                rpm -qa > "$BD"/package-list.txt
+                ;;
+            arch)
+                pacman -Qqe > "$BD"/package-list.txt
+                ;;
+            *)
+                echo "Unsupported OS for package list backup."
+                ;;
+        esac
+    else
+        echo "/etc/os-release not found. Cannot determine OS."
+    fi
+}
+
+backup_rconfig()
 {
     # Make the backup dir with the current username
-    mkdir -p "$BD"
     mkdir -p "$BD"/config
     mkdir -p "$BD"/homerc
     for rcfile in $RC_FILELIST
     do
         dotrc=$HOME/.$rcfile
-        if [ -e $dotrc ]; then
+        if [ -e "$dotrc" ]; then
             echo -e "Backing up $dotrc..."
-            cp -r $dotrc "$BD"/homerc/$rcfile
+            cp -r "$dotrc" "$BD/homerc/$rcfile"
+            echo -e "\e[32mOK\e[0m"
         fi
     done
     for conffile in $CONFIG_FILELIST
     do
         homeconf=$HOME/.config/$conffile
-        if [ -e $homeconf ]; then
+        if [ -e "$homeconf" ]; then
             echo -e "Backing up $homeconf..."
-            cp -r $homeconf "$BD"/config/
+            cp -r "$homeconf" "$BD"/config/
+            echo -e "\e[32mOK\e[0m"
         fi
     done
-    echo "Backup completed. Backup directory: $BD"
 }
 
-restore()
+restore_rconfig()
 {
     RCDIR=$PWD/"$BD"/homerc
     CONFDIR=$PWD/"$BD"/config
 
-    if [ -d $RCDIR ]; then
-        RC_LIST=`ls $RCDIR`
+    if [ ! -d "$BD"  ]; then
+        echo "Backup directory $BD does not exist. Cannot restore."
+        exit 1
     fi
-    if [ -d $CONFDIR ]; then
-        CONFIG_LIST=`ls $CONFDIR`
+
+    if [ -d "$RCDIR" ]; then
+        RC_LIST=$(ls "$RCDIR")
+    fi
+    if [ -d "$CONFDIR" ]; then
+        CONFIG_LIST=$(ls "$CONFDIR")
     fi
 
     for rcfile in $RC_LIST
     do
         dotrc=$HOME/.$rcfile
         echo -e "Restoring $dotrc..."
-        if [ -e $dotrc -a ! -L $dotrc ]; then
+        if [ -e "$dotrc" ] && [ ! -L "$dotrc"  ]; then
             echo -e "Backing up existing $dotrc to $dotrc.bak"
-            mv $dotrc $dotrc.bak
+            mv "$dotrc" "$dotrc".bak
         fi
         echo -e "Creating symlink for $dotrc..."
-        ln -sf $RCDIR/$rcfile $dotrc
+        ln -sf "$RCDIR"/"$rcfile" "$dotrc"
     done
 
     for conffile in $CONFIG_LIST
     do
-        homeconf=$HOME/.config/$conffile
-        if [ -d $homeconf -a ! -L $homeconf ]; then
+        homeconf="$HOME/.config/$conffile"
+        if [ -d "$homeconf" ] && [ ! -L "$homeconf" ]; then
             echo -e "Backing up existing $homeconf to $homeconf.bak"
-            mv $homeconf $homeconf.bak
+            mv "$homeconf" "$homeconf".bak
         fi
         echo -e "Creating symlink for $homeconf..."
-        ln -sf $PWD/"$BD"/config/$conffile $homeconf
+        ln -sf "$PWD/$BD/config/$conffile" "$homeconf"
     done
+}
+
+restore_packages()
+{
+    if [ ! -f "$BD"/package-list.txt ]; then
+        echo "Package list file not found in backup directory."
+        exit 1
+    fi
+
+    if [ -f /etc/os-release ]; then
+        # shellcheck disable=SC1091
+        . /etc/os-release
+        case $ID in
+            ubuntu|debian)
+                xargs -a "$BD"/package-list.txt sudo apt-get install -y
+                ;;
+            fedora|centos|rhel)
+                xargs -a "$BD"/package-list.txt sudo dnf install -y
+                ;;
+            arch)
+                xargs -a "$BD"/package-list.txt sudo pacman -S --noconfirm
+                ;;
+            *)
+                echo "Unsupported OS for package restoration."
+                ;;
+        esac
+    else
+        echo "/etc/os-release not found. Cannot determine OS."
+    fi
+}
+
+restore_dconf()
+{
+    if [ ! -f "$BD"/dconf-settings.txt ]; then
+        echo "Dconf settings file not found in backup directory."
+        exit 1
+    fi
+    dconf load / < "$BD"/dconf-settings.txt
 }
 
 if [ "$BACKUP" = "backup" ]; then
     echo "Start backing up rc and config files..."
-    backup
-else
+    backup_rconfig
+    echo "Start backing up installed package list..."
+    save_package_list
+    echo "Start backing up gnome dconf settings..."
+    dump_gnome_dconf
+    echo -e "Backup completed. Backup directory: \e[33m$BD\e[0m\n"
+elif [ "$BACKUP" = "pkgs" ]; then
+    echo "Start restoring installed package list..."
+    restore_packages
+elif [ "$BACKUP" = "dconf" ]; then
+    echo "Start restoring gnome dconf settings..."
+    restore_dconf
+elif [ "$BACKUP" = "rconfig" ]; then
     echo "Start restoring rc and config files..."
-    if [ ! -d "$BD" ]; then
-        echo "Backup directory $BD does not exist. Cannot restore."
-        exit 1
-    fi
-    restore
+    restore_rconfig
+else
+    usage
+    exit 1
 fi
 
