@@ -13,7 +13,7 @@ usage()
     echo "  firefox  - Install latest firefox browser(non-snap), snap version will be removed"
 }
 
-RC_FILELIST="bashrc vim vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
+RC_FILELIST="bashrc bash_history vim vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
 CONFIG_FILELIST="jenkins_job rclone oem-scripts"
 
 BACKUP=$1
@@ -147,7 +147,7 @@ restore_packages()
                 sudo apt update
                 sudo apt install -y $PACKAGE
                 PACKAGE=""
-                UBUNTU_PURGE_LIST=`cat ubuntu_pkg.list | grep '^#' | cut -d'#' -f2`
+                UBUNTU_PURGE_LIST=$(cat "$BD"/ubuntu_pkg.list | grep '^#' | cut -d'#' -f2)
                 for p in $UBUNTU_PURGE_LIST
                 do
                     PACKAGE="$PACKAGE $p"
