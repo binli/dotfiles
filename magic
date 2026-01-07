@@ -128,7 +128,7 @@ restore_rconfig()
 
 restore_packages()
 {
-    if [ ! -f "$BD"/package-list.txt ]; then
+    if [ ! -f "$BD"/package-list.txt ] || [ ! -f "$BD"/ubuntu_pkg.list ]; then
         echo "Package list file not found in backup directory."
         exit 1
     fi
@@ -138,7 +138,23 @@ restore_packages()
         . /etc/os-release
         case $ID in
             ubuntu|debian)
-                xargs -a "$BD"/ubuntu_pkg.list sudo apt-get install -y
+                PACKAGE=""
+                UBUNTU_INSTALL_LIST=$(cat "$BD"/ubuntu_pkg.list | grep -v '^#')
+                for p in $UBUNTU_INSTALL_LIST
+                do
+                    PACKAGE="$PACKAGE $p"
+                done
+                sudo apt update
+                sudo apt install -y $PACKAGE
+                PACKAGE=""
+                UBUNTU_PURGE_LIST=`cat ubuntu_pkg.list | grep '^#' | cut -d'#' -f2`
+                for p in $UBUNTU_PURGE_LIST
+                do
+                    PACKAGE="$PACKAGE $p"
+                done
+                if [ "x$PACKAGE" != "x" ] ; then
+                    sudo apt purge -y $PACKAGE
+                fi
                 ;;
             fedora|centos|rhel)
                 xargs -a "$BD"/package-list.txt sudo dnf install -y
