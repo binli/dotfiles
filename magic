@@ -11,18 +11,6 @@ if [ -z "$BACKUP" ]; then
     exit 1
 fi
 
-if [ "$BACKUP" = "backup" ]; then
-    echo "Start backing up rc and config files..."
-    backup()
-else
-    echo "Start restoring rc and config files..."
-    if [ ! -d "$BD" ]; then
-        echo "Backup directory $BD does not exist. Cannot restore."
-        exit 1
-    fi
-    restore()
-fi
-
 backup()
 {
     # Make the backup dir with the current username
@@ -34,7 +22,7 @@ backup()
         dotrc=$HOME/.$rcfile
         if [ -e $dotrc ]; then
             echo -e "Backing up $dotrc..."
-            cp -r $dotrc "$BD"/homerc/
+            cp -r $dotrc "$BD"/homerc/$rcfile
         fi
     done
     for conffile in $CONFIG_FILELIST
@@ -83,3 +71,16 @@ restore()
         ln -sf $PWD/"$BD"/config/$conffile $homeconf
     done
 }
+
+if [ "$BACKUP" = "backup" ]; then
+    echo "Start backing up rc and config files..."
+    backup
+else
+    echo "Start restoring rc and config files..."
+    if [ ! -d "$BD" ]; then
+        echo "Backup directory $BD does not exist. Cannot restore."
+        exit 1
+    fi
+    restore
+fi
+
