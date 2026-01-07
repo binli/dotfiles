@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Backup and restore the homerc and config files quickly
-#
-RC_FILELIST="bashrc vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
-CONFIG_FILELIST="jenkins_job rclone oem-scripts"
+# Bin Li <binli@ubuntu.com>
+
 usage()
 {
     echo "Usage: $0 backup|rconfig|pkgs|dconf"
@@ -11,6 +10,9 @@ usage()
     echo "  pkgs     - Restore installed packages from backup"
     echo "  dconf    - Restore gnome dconf settings from backup"
 }
+
+RC_FILELIST="bashrc vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
+CONFIG_FILELIST="jenkins_job rclone oem-scripts"
 
 BACKUP=$1
 BD="backup-$(whoami)"
