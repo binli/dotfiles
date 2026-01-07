@@ -230,7 +230,7 @@ elif [ "$BACKUP" = "chrome" ]; then
     init_chrome
 elif [ "$BACKUP" = "firefox" ]; then
     echo "Start installing firefox(non-snap)..."
-    init_chrome
+    init_firefox
 else
     usage
     exit 1
