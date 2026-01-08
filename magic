@@ -13,7 +13,7 @@ usage()
     echo "  firefox  - Install latest firefox browser(non-snap), snap version will be removed"
 }
 
-RC_FILELIST="bashrc bash_history vim vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh"
+RC_FILELIST="bashrc bash_history vim vimrc tmux.conf zshrc gitconfig inputrc profile gnupg ssh oathcounter"
 CONFIG_FILELIST="jenkins_job rclone oem-scripts"
 
 BACKUP=$1
@@ -128,7 +128,9 @@ restore_rconfig()
 
 restore_packages()
 {
-    if [ ! -f "$BD"/package-list.txt ] || [ ! -f "$BD"/ubuntu_pkg.list ]; then
+    if [ -f "$BD"/package-list.txt ] || [ -f "$BD"/ubuntu_pkg.list ]; then
+        echo "Restoring packages from backup..."
+    else
         echo "Package list file not found in backup directory."
         exit 1
     fi
