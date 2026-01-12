@@ -151,19 +151,20 @@
     google-chrome
     gnumake
     libreoffice-fresh
+    mpv
     nix-prefetch-github
     nmap
     oath-toolkit
     parted
     pciutils
     python3
+    qv2ray
     quilt
     rclone
     ripgrep
     shellcheck
-    mpv
-    qv2ray
     smplayer
+    yazi
   ];
 
   environment.gnome.excludePackages = with pkgs; [
