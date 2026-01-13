@@ -15,9 +15,6 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -147,6 +144,12 @@
       user.name = "Bin Li";
       user.email = "libin3479@gmail.com";
       alias.st = "status";
+      init.defaultBranch = "main";
+      url = {
+        "git+ssh://binli@git.launchpad.net/ubuntu/+source/" = {
+          insteadOf = "u:";
+        };
+      };
     };
     signing = {
       key = "F6FD6C84E7A3C2E8";
@@ -162,13 +165,6 @@
         path = "~/.gitconfig_ubuntu";
       }
     ];
-    extraConfig = {
-      url = {
-        "git+ssh://binli@git.launchpad.net/ubuntu/+source/" = {
-          insteadOf = "u:";
-        };
-      };
-    };
   };
 
   programs.vim = {
@@ -224,11 +220,16 @@
   };
   programs.ssh = {
     enable = true;
-    userKnownHostsFile = "/dev/null";
+    enableDefaultConfig = false;
+    matchBlocks."*" = {
+      userKnownHostsFile = "/dev/null";
+      controlMaster = "auto";
+      controlPersist = "5m";
+    };
     extraConfig =
     ''
     StrictHostKeyChecking no
-    Host *.local
+    Host *.local 10.*.*.*
       User u
     '';
   };
