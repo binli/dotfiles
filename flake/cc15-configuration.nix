@@ -147,7 +147,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = let
-    pkgs-stable = import inputs.nixpkgs {inherit (pkgs) system;};
+    pkgs-stable = import inputs.nixpkgs {inherit (pkgs.stdenv.hostPlatform) system;};
     qv2ray = pkgs-stable.qv2ray;
   in with pkgs; [
     black
@@ -170,20 +170,23 @@
     google-chrome
     gnumake
     libreoffice-fresh
+    mpv
     nix-prefetch-github
+    nmap
     oath-toolkit
+    opencode
     parted
     pciutils
     python3
+    qv2ray
     quilt
     rclone
     ripgrep
     shellcheck
-    mpv
-    qv2ray
     smplayer
     transmission_4-gtk
     usbutils
+    yazi
   ];
 
   environment.gnome.excludePackages = with pkgs; [
