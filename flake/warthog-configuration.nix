@@ -155,6 +155,7 @@
     nix-prefetch-github
     nmap
     oath-toolkit
+    opencode
     parted
     pciutils
     python3
