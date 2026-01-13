@@ -125,7 +125,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = let
-    pkgs-stable = import inputs.nixpkgs {inherit (pkgs) system;};
+    pkgs-stable = import inputs.nixpkgs {inherit (pkgs.stdenv.hostPlatform) system;};
     qv2ray = pkgs-stable.qv2ray;
   in with pkgs; [
     black
