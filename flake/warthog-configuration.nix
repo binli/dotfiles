@@ -124,10 +124,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = let
-    pkgs-stable = import inputs.nixpkgs {inherit (pkgs.stdenv.hostPlatform) system;};
-    qv2ray = pkgs-stable.qv2ray;
-  in with pkgs; [
+  environment.systemPackages = with pkgs; [
     black
     github-copilot-cli
     debian-devscripts
@@ -159,12 +156,12 @@
     parted
     pciutils
     python3
-    qv2ray
     quilt
     rclone
     ripgrep
     shellcheck
     smplayer
+    v2ray
     yazi
   ];
 
