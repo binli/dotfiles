@@ -164,6 +164,10 @@
         condition = "gitdir:/source/gits/canonical/";
         path = "~/.gitconfig_ubuntu";
       }
+      {
+        condition = "gitdir:/source/oem/";
+        path = "~/.gitconfig_ubuntu";
+      }
     ];
   };
 
