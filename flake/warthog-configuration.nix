@@ -166,6 +166,7 @@
   ];
 
   environment.gnome.excludePackages = with pkgs; [
+    decibels
     totem
     geary
     gnome-calendar
