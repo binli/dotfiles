@@ -186,6 +186,7 @@
       shiftwidth = 4;
       tabstop = 4;
       undodir = ["/tmp/vimbk/"];
+      undofile = true;
     };
     extraConfig = ''
       set encoding=utf-8
