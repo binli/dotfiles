@@ -87,11 +87,8 @@ EOF
 init_chrome()
 {
     if [ ! -e /etc/apt/sources.list.d/google-chrome.list ]; then
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv  78BD65473CB3BD13
-        echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /tmp/google-chrome.list
-        sudo mv /tmp/google-chrome.list /etc/apt/sources.list.d/
-        sudo apt update
-        sudo apt install -y google-chrome-stable
+        curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o google-chrome-stable_current_amd64.deb
+        sudo dpkg -i google-chrome-stable_current_amd64.deb
     fi
 }
 
