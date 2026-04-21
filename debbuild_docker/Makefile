@@ -1,12 +1,12 @@
-.PHONY: all noble questing focal debian run-noble run-questing run-focal run-debian clean
+.PHONY: all noble resolute focal debian run-noble run-questing run-focal run-debian clean
 
 NOBLE_VERSION = 24.04
-QUESTING_VERSION = 25.10
+RESOLUTE_VERSION = 26.04
 FOCAL_VERSION = 20.04
 DEBIAN_VERSION = experimental
 
 # Define a variable for the Docker images to build
-IMAGES = noble questing
+IMAGES = noble resolute
 
 # Define a variable for the secrets file
 SECRET_FILE = passwd.txt
@@ -17,7 +17,7 @@ all: $(IMAGES)
 # Rule to build individual service images
 $(IMAGES):
 	docker build --secret id=ubuntu,src=$(SECRET_FILE) \
-		--build-arg UBUNTU_VERSION=$(if $(filter noble,$@),$(NOBLE_VERSION),$(QUESTING_VERSION)) \
+		--build-arg UBUNTU_VERSION=$(if $(filter noble,$@),$(NOBLE_VERSION),$(RESOLUTE_VERSION)) \
 		-t deb:$@ -f Dockerfile .
 
 focal:
@@ -30,11 +30,13 @@ debian:
 		--build-arg DEBIAN_VERSION=$(DEBIAN_VERSION) \
 		-t deb:debian -f Dockerfile.debian .
 
-run-questing: questing
+run-resolute: resolute
 	docker run -it --rm -v /work/init/ssh:/home/ubuntu/.ssh \
 		-v /work/init/gnupg:/home/ubuntu/.gnupg \
+		-v /work/init/launchpad.credentials.binli:/home/ubuntu/launchpad.credentials \
+		-v /work/init/oem-scripts:/home/ubuntu/.config/oem-scripts \
 		-v /source:/source \
-		deb:questing bash
+		deb:resolute bash
 
 run-noble: noble
 	docker run -it --rm -v /work/init/ssh:/home/ubuntu/.ssh \
@@ -59,4 +61,4 @@ run-debian: debian
 
 clean:
 	@echo "Removing Docker images: $(IMAGES)"
-	-docker rmi deb:noble deb:questing
+	-docker rmi deb:noble deb:resolute deb:focal deb:debian
