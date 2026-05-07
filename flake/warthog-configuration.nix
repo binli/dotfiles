@@ -128,6 +128,7 @@
     python3 = pkgs.python3.withPackages (ps: with ps; [
       requests
       jinja2
+      jenkins-job-builder
     ]);
   in with pkgs; [
     black
