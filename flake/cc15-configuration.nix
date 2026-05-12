@@ -169,6 +169,8 @@
     nix-prefetch-github
     nmap
     oath-toolkit
+    ollama
+    openclaw
     opencode
     parted
     pciutils
@@ -178,10 +180,15 @@
     ripgrep
     shellcheck
     smplayer
+    tig
     transmission_4-gtk
     usbutils
     v2ray
     yazi
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "openclaw-2026.4.22"
   ];
 
   environment.gnome.excludePackages = with pkgs; [
