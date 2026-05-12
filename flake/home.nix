@@ -48,6 +48,7 @@
     # ".screenrc".source = dotfiles/screenrc;
     ".tmux.conf".source = ../homerc/tmux.conf;
     ".gitconfig_ubuntu".source = ../homerc/gitconfig_ubuntu;
+    #".ssh".source = /work/init/ssh;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
@@ -78,13 +79,20 @@
 
   home.sessionVariables = {
     EDITOR = "vim";
+    NIXPKGS_ALLOW_UNFREE = 1;
   };
 
   dconf.settings = {
+    "org/gnome/Console" = {
+      custom-font = "Monospace 10";
+      font-scale = 1.5;
+      use-system-font = false;
+    };
     "org/gnome/desktop/calendar" = {
       show-weekdate = true;
     };
     "org/gnome/desktop/interface" = {
+      accent-color = "green";
       color-scheme = "prefer-dark";
       clock-show-weekday = true;
       show-battery-percentage = true;
@@ -173,6 +181,7 @@
 
   programs.vim = {
     enable = true;
+    defaultEditor = true;
     plugins = with pkgs.vimPlugins; [
       auto-pairs
       copilot-vim
@@ -182,11 +191,11 @@
     settings = {
       backupdir = ["/tmp/vimbk/"];
       expandtab = true;
-      mouse = null;
       shiftwidth = 4;
       tabstop = 4;
       undodir = ["/tmp/vimbk/"];
       undofile = true;
+      mouse = "n";
     };
     extraConfig = ''
       set encoding=utf-8
@@ -222,12 +231,18 @@
         if [ ! -d "/tmp/vimbk" ] ; then
           mkdir -p /tmp/vimbk /tmp/nvimbk
         fi
+	source "/home/binli/.openclaw/completions/openclaw.bash"
     '';
   };
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
     matchBlocks."*" = {
+      userKnownHostsFile = "/dev/null";
+      controlMaster = "auto";
+      controlPersist = "5m";
+    };
+    matchBlocks."*.local 10.106.*.*" = {
       userKnownHostsFile = "/dev/null";
       controlMaster = "auto";
       controlPersist = "5m";

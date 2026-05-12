@@ -151,6 +151,7 @@
     file
     flowblade
     jq
+    gemini-cli
     gimp
     git-buildpackage
     gnomeExtensions.blur-my-shell
@@ -164,13 +165,14 @@
     gnomeExtensions.status-icons
     google-chrome
     gnumake
+    home-manager
     libreoffice-fresh
     mpv
     nix-prefetch-github
+    nodejs
     nmap
     oath-toolkit
     ollama
-    openclaw
     opencode
     parted
     pciutils
