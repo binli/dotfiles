@@ -13,7 +13,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "25.11"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -74,6 +74,7 @@
   #  /etc/profiles/per-user/binli/etc/profile.d/hm-session-vars.sh
   #
   home.sessionPath = [
+    "$HOME/.nix-profile/bin"
     "$HOME/bin"
   ];
 
@@ -189,11 +190,11 @@
       vim-surround
     ];
     settings = {
-      backupdir = ["/tmp/vimbk/"];
+      backupdir = [ "/tmp/vimbk/" ];
+      undodir = [ "/tmp/vimbk/" ];
       expandtab = true;
       shiftwidth = 4;
       tabstop = 4;
-      undodir = ["/tmp/vimbk/"];
       undofile = true;
       mouse = "n";
     };
@@ -231,7 +232,6 @@
         if [ ! -d "/tmp/vimbk" ] ; then
           mkdir -p /tmp/vimbk /tmp/nvimbk
         fi
-	source "/home/binli/.openclaw/completions/openclaw.bash"
     '';
   };
   programs.ssh = {
