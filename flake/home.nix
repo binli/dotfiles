@@ -196,7 +196,7 @@
       shiftwidth = 4;
       tabstop = 4;
       undofile = true;
-      mouse = "n";
+      mouse = "r";
     };
     extraConfig = ''
       set encoding=utf-8
