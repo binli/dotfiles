@@ -143,11 +143,13 @@
       requests
       jinja2
       jenkins-job-builder
+      llm-openrouter
     ]);
   in with pkgs; [
     black
-    github-copilot-cli
+    claude-code
     debian-devscripts
+    github-copilot-cli
     file
     flowblade
     jq
@@ -169,7 +171,6 @@
     libreoffice-fresh
     mpv
     nix-prefetch-github
-    nodejs
     nmap
     oath-toolkit
     ollama
