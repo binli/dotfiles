@@ -149,9 +149,10 @@
     black
     claude-code
     debian-devscripts
-    github-copilot-cli
+    edid-decode
     file
     flowblade
+    github-copilot-cli
     jq
     gemini-cli
     gimp
@@ -190,11 +191,12 @@
     yazi
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "openclaw-2026.4.22"
-  ];
+  #nixpkgs.config.permittedInsecurePackages = [
+  #  "openclaw-2026.4.22"
+  #];
 
   environment.gnome.excludePackages = with pkgs; [
+    decibels
     totem
     geary
     gnome-calendar
@@ -258,7 +260,7 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 
   hardware.bluetooth.enable = false;
   virtualisation.docker.enable = true;
