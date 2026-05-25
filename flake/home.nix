@@ -158,6 +158,9 @@
         "git+ssh://binli@git.launchpad.net/ubuntu/+source/" = {
           insteadOf = "u:";
         };
+        "git+ssh://binli@git.launchpad.net/" = {
+          insteadof = "lp:";
+        };
       };
     };
     signing = {
