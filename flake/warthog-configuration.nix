@@ -174,6 +174,13 @@
     usbutils
     v2ray
     yazi
+    ncurses
+    flex
+    bison
+    bc
+    elfutils
+    openssl
+    openssl.dev
   ];
 
   environment.gnome.excludePackages = with pkgs; [
