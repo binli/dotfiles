@@ -96,6 +96,7 @@
       accent-color = "green";
       color-scheme = "prefer-dark";
       clock-show-weekday = true;
+      gtk-enable-primary-paste = true;
       show-battery-percentage = true;
     };
     "org/gnome/desktop/session" = {
@@ -182,7 +183,7 @@
       }
       {
         condition = "gitdir:/source/kernel/noble-linux-oem/";
-        path = "~/.gitconfig_ubuntu";
+        path = "~/.gitconfig_canonical";
       }
     ];
   };
