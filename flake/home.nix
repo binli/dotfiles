@@ -180,6 +180,10 @@
         condition = "gitdir:/source/oem/";
         path = "~/.gitconfig_ubuntu";
       }
+      {
+        condition = "gitdir:/source/kernel/noble-linux-oem/";
+        path = "~/.gitconfig_ubuntu";
+      }
     ];
   };
 
