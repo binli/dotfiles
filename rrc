@@ -123,9 +123,10 @@ init_vim()
 
 init_gnome()
 {
-    gsettings set org.gnome.desktop.interface enable-hot-corners true
     gsettings set org.gnome.desktop.interface clock-show-weekday true
     gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+    gsettings set org.gnome.desktop.interface enable-hot-corners true
+    gsettings set org.gnome.desktop.interface gtk-enable-primary-paste true
     gsettings set org.gnome.desktop.interface show-battery-percentage true
     gsettings set org.gnome.desktop.calendar show-weekdate true
     # Screen Blank
@@ -195,6 +196,17 @@ init_etc()
         sudo cp etc/nopwd /etc/sudoers.d/
     fi
 }
+
+if [ -n "$1" ]; then
+    if declare -f "$1" > /dev/null 2>&1; then
+        "$1" "${@:2}"
+    else
+        echo "Unknown function: $1"
+        echo "Available: init_packages, init_firefox, init_chrome, init_vim, init_gnome, stop_aptupdate, init_neovim, init_etc"
+        exit 1
+    fi
+    exit 0
+fi
 
 sudo umount /var/snap/firefox/common/host-hunspell
 
