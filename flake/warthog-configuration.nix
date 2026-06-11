@@ -156,6 +156,7 @@
     gnomeExtensions.status-icons
     google-chrome
     gnumake
+    home-manager
     libreoffice-fresh
     mpv
     nix-prefetch-github
