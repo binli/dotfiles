@@ -221,6 +221,8 @@
   # Enable fwupd for firmware updates.
   services.fwupd.enable = true;
 
+  programs.direnv.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
