@@ -48,7 +48,7 @@
     # ".screenrc".source = dotfiles/screenrc;
     ".tmux.conf".source = ../homerc/tmux.conf;
     ".gitconfig_ubuntu".source = ../homerc/gitconfig_ubuntu;
-    ".gitconfig_canonical".source = ../homerc/gitconfig_canonical;
+    #".gitconfig_canonical".source = ../homerc/gitconfig_canonical;
     #".ssh".source = /work/init/ssh;
 
     # # You can also set the file content immediately.
@@ -183,7 +183,7 @@
         path = "~/.gitconfig_ubuntu";
       }
       {
-        condition = "gitdir:/source/kernel/noble-linux-oem/";
+        condition = "gitdir:/source/kernel/";
         path = "~/.gitconfig_canonical";
       }
     ];
