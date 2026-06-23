@@ -10,7 +10,7 @@ debhelper-compat
 devscripts
 dh-modaliases
 dput
-fcitx-table-wubi
+fcitx5-table-wubi
 fd-find
 flake8
 flex
