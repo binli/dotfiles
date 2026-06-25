@@ -152,6 +152,7 @@
     edid-decode
     file
     flowblade
+    gh
     github-copilot-cli
     jq
     gemini-cli

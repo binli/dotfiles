@@ -131,6 +131,7 @@
       requests
       jinja2
       jenkins-job-builder
+      llm-openrouter
     ]);
   in with pkgs; [
     black
@@ -138,6 +139,7 @@
     debian-devscripts
     edid-decode
     file
+    gh
     github-copilot-cli
     jenkins-job-builder
     jq
