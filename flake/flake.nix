@@ -4,6 +4,7 @@
   inputs = {
     #nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    hermes-agent.url = "github:NousResearch/hermes-agent";
 
     #home-manager = {
     #  url = "github:nix-community/home-manager/release-25.05";
@@ -19,7 +20,7 @@
     #};
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, hermes-agent, ... }@inputs: {
     # use "nixos", or your hostname as the name of the configuration
     # it's a better practice than "default" shown in the video
     # Home computer, P1 Gen 6, cc15
@@ -50,6 +51,7 @@
     nixosConfigurations.warthog = nixpkgs-unstable.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
+        hermes-agent.nixosModules.default
         ./warthog-configuration.nix
         inputs.home-manager-unstable.nixosModules.home-manager
         {
