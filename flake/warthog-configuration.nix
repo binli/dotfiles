@@ -141,6 +141,7 @@
     file
     gh
     github-copilot-cli
+    ghostscript
     jenkins-job-builder
     jq
     gcc14
@@ -259,6 +260,12 @@
   virtualisation.docker.enable = true;
 
   services.udisks2.mountOnMedia = true;
+
+  services.hermes-agent = {
+    enable = true;
+    settings.model.default = "anthropic/claude-sonnet-4";
+    addToSystemPackages = true;
+  };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   hardware.graphics.enable = true;
