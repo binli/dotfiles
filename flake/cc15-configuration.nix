@@ -142,7 +142,6 @@
     python3 = pkgs.python3.withPackages (ps: with ps; [
       requests
       jinja2
-      jenkins-job-builder
       llm-openrouter
     ]);
   in with pkgs; [
