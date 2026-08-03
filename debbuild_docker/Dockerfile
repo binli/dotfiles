@@ -13,8 +13,7 @@ RUN mkdir -p /etc/sudoers.d/ \
 
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update --fix-missing
-RUN apt-get -y install devscripts debhelper dh-modaliases git vim sudo ubuntu-dev-tools python3-jinja2
+RUN apt-get update; apt-get -y install devscripts debhelper dh-modaliases git vim sudo ubuntu-dev-tools python3-jinja2
 RUN apt-get clean
 
 RUN mkdir -p /home/${USERNAME}/.ssh \
