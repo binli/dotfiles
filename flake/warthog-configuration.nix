@@ -141,7 +141,6 @@
     gh
     github-copilot-cli
     ghostscript
-    jenkins-job-builder
     jq
     gcc14
     gcr
@@ -184,6 +183,7 @@
     elfutils
     openssl
     openssl.dev
+    wl-clipboard
   ];
 
   environment.gnome.excludePackages = with pkgs; [

@@ -188,6 +188,7 @@
     transmission_4-gtk
     usbutils
     v2ray
+    wl-clipboard
     yazi
   ];
 
