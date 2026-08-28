@@ -1,0 +1,15 @@
+bindgen
+bison
+curl
+dkms
+fakeroot
+flex
+gawk
+libdw-dev
+libcap-dev
+libelf-dev
+libncurses-dev
+libssl-dev
+pahole
+rustc
+rust-src
