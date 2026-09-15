@@ -234,6 +234,7 @@
     shellAliases = {
       e = "exit";
       ".." = "cd ..";
+      sso = "oathtool --hotp $OATH_KEY";
       tmux = "tmux attach";
     };
     sessionVariables = {
@@ -252,6 +253,7 @@
         if [ ! -d "/tmp/vimbk" ] ; then
           mkdir -p /tmp/vimbk /tmp/nvimbk
         fi
+        source /work/init/env
     '';
   };
   programs.ssh = {
