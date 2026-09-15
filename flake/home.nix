@@ -1,4 +1,4 @@
-{ config, pkgs, lib, xdg, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -17,12 +17,14 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
-    pkgs.rclone
-    pkgs.tmux
+    oath-toolkit
+    rclone
+    ripgrep
+    tmux
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -37,7 +39,6 @@
     #   echo "Hello, ${config.home.username}!"
     # '')
   ];
-  xdg.configFile."rclone/rclone.conf".source = /work/init/rclone/rclone.conf;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -46,10 +47,15 @@
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
     # ".screenrc".source = dotfiles/screenrc;
-    ".tmux.conf".source = ../homerc/tmux.conf;
-    ".gitconfig_ubuntu".source = ../homerc/gitconfig_ubuntu;
-    #".gitconfig_canonical".source = ../homerc/gitconfig_canonical;
-    #".ssh".source = /work/init/ssh;
+    ".config/github-copilot/apps.json".source = dotfiles_c/config/github-copilot/apps.json;
+    ".config/rclone/rclone.conf".source = dotfiles_c/config/rclone/rclone.conf;
+    ".gitconfig_ubuntu".source = dotfiles/gitconfig_ubuntu;
+    ".gitconfig_canonical".source = dotfiles_c/gitconfig_canonical;
+    ".sesame".source = dotfiles_c/sesame;
+    ".ssh/id_ed25519".source = dotfiles_c/ssh/id_ed25519;
+    ".ssh/id_ed25519.pub".source = dotfiles_c/ssh/id_ed25519.pub;
+    ".tmux.conf".source = dotfiles/tmux.conf;
+    "launchpad.credentials".source = dotfiles_c/launchpad.credentials.binli;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
@@ -136,12 +142,13 @@
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = with pkgs.gnomeExtensions; [
-        kimpanel.extensionUuid
-        status-icons.extensionUuid
-        desktop-cube.extensionUuid
         burn-my-windows.extensionUuid
         compiz-windows-effect.extensionUuid
+        coverflow-alt-tab.extensionUuid
+        desktop-cube.extensionUuid
+        kimpanel.extensionUuid
         moveclock.extensionUuid
+        status-icons.extensionUuid
       ];
     };
     "org/gnome/shell/extensions/moveclock" = {
@@ -180,6 +187,10 @@
       }
       {
         condition = "gitdir:/source/oem/";
+        path = "~/.gitconfig_ubuntu";
+      }
+      {
+        condition = "gitdir:/source/sutton/";
         path = "~/.gitconfig_ubuntu";
       }
       {
@@ -246,12 +257,12 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks."*" = {
+    settings."*" = {
       userKnownHostsFile = "/dev/null";
       controlMaster = "auto";
       controlPersist = "5m";
     };
-    matchBlocks."*.local 10.106.*.*" = {
+    settings."*.local 10.106.*.*" = {
       userKnownHostsFile = "/dev/null";
       controlMaster = "auto";
       controlPersist = "5m";
@@ -259,8 +270,8 @@
     extraConfig =
     ''
     StrictHostKeyChecking no
-    Host *.local 10.*.*.*
-      User u
+    Host *.local 10.106.*.*
+      User ubuntu
     '';
   };
   # Let Home Manager install and manage itself.
