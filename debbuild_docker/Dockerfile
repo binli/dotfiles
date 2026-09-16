@@ -1,7 +1,7 @@
 ARG UBUNTU_VERSION=24.04
 
-FROM docker.m.daocloud.io/library/ubuntu:${UBUNTU_VERSION}
-#FROM ubuntu:${UBUNTU_VERSION}
+#FROM docker.m.daocloud.io/library/ubuntu:${UBUNTU_VERSION}
+FROM ubuntu:${UBUNTU_VERSION}
 
 ARG USERNAME=ubuntu
 
@@ -14,7 +14,7 @@ RUN mkdir -p /etc/sudoers.d/ \
 
 
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update; apt-get -y install devscripts debhelper dh-modaliases git vim sudo ubuntu-dev-tools python3-jinja2
+RUN apt-get update; apt-get -y install devscripts debhelper dh-modaliases git vim sudo ubuntu-dev-tools python3-jinja2 colordiff
 #RUN apt-get -y install debhelper-compat flex bison libssl-dev libelf-dev kernel-wedge pkg-config liblz4-tool tmux libncurses5-dev libcap-dev gawk gcc-13 dkms pahole cpio libdwarf-dev libdw-dev rustc rust-src bindgen rustfmt rust-clippy bc
 RUN apt-get clean
 
