@@ -186,8 +186,8 @@
     libreoffice-fresh
     mpv
     (python3.withPackages (ps: with ps; [
-      build
       jinja2
+      launchpadlib
       requests
     ]))
     quilt
