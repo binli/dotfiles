@@ -4,7 +4,9 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -179,21 +181,24 @@
     dpkg
     gimp
     git-buildpackage
-    github-copilot-cli
     google-chrome
     gnumake
     jq
     libreoffice-fresh
     mpv
     (python3.withPackages (ps: with ps; [
+      flake8
       jinja2
       launchpadlib
+      pyyaml
       requests
     ]))
     quilt
     shellcheck
     smplayer
     wl-clipboard
+
+    unstable.github-copilot-cli
   ];
 
   virtualisation.docker = {
