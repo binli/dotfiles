@@ -21,6 +21,7 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
+    gh
     oath-toolkit
     rclone
     ripgrep
@@ -55,6 +56,7 @@
     ".gitconfig_ubuntu".source = "${dotfiles}/gitconfig_ubuntu";
     ".gitconfig_canonical".source = "${dotfiles_c}/gitconfig_canonical";
     ".sesame".source = "${dotfiles_c}/sesame";
+    ".ssh/authorized_keys".source = "${dotfiles_c}/ssh/authorized_keys";
     ".ssh/id_ed25519".source = "${dotfiles_c}/ssh/id_ed25519";
     ".ssh/id_ed25519.pub".source = "${dotfiles_c}/ssh/id_ed25519.pub";
     ".tmux.conf".source = "${dotfiles}/tmux.conf";

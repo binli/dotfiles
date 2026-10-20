@@ -190,6 +190,7 @@ in {
       flake8
       jinja2
       launchpadlib
+      llm-openrouter
       pyyaml
       requests
     ]))
