@@ -200,6 +200,7 @@ in {
     wl-clipboard
 
     unstable.github-copilot-cli
+    unstable.opencode
   ];
 
   virtualisation.docker = {
