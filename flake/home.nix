@@ -22,6 +22,7 @@
     # # "Hello, world!" when run.
     # pkgs.hello
     cloudflared
+    foliate
     gh
     oath-toolkit
     rclone
