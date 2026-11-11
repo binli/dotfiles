@@ -6,6 +6,17 @@
 
 let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+  # Temporary workaround for the opencode 2.2.5 node_modules hash mismatch.
+  # Stop overriding automatically when unstable updates the version or hash.
+  #opencode = unstable.opencode.overrideAttrs (old: {
+  #  node_modules =
+  #    if old.version == "2.2.5"
+  #      && old.node_modules.outputHash == "sha256-xfOVcw1+waLVNhFDwzOtzxrUSQEogvn88YomydOlhwc="
+  #    then old.node_modules.overrideAttrs (_: {
+  #      outputHash = "sha256-prx9dX7kUvs/E3zopkaPk5LXh3xJAy5sZeum/W8L7cA=";
+  #    })
+  #    else old.node_modules;
+  #});
 in {
   imports =
     [ # Include the results of the hardware scan.
@@ -38,7 +49,7 @@ in {
 
     # Select the appropriate driver version for your specific GPU.
     # NixOS 26.05 introduces `hardware.nvidia.branch` as a choice helper.
-    #branch = "production";
+    #branch = "beta";
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       version = "595.99.02";
       sha256_64bit = "sha256-6HR3lYv3YwcFSTJL1a1slI66btIQ5EAFs+/4SUD24ew=";
@@ -61,6 +72,59 @@ in {
   networking.networkmanager.plugins = with pkgs; [
     networkmanager-openvpn
   ];
+  networking.nftables.enable = true;
+
+  virtualisation.incus = {
+    enable = true;
+    preseed = {
+      networks = [
+        {
+          config = {
+            "ipv4.address" = "auto";
+            "ipv6.address" = "none";
+            "ipv4.nat" = "true";
+          };
+          name = "incusbr0";
+          type = "bridge";
+        }
+      ];
+      profiles = [
+        {
+          devices = {
+            eth0 = {
+              name = "eth0";
+              network = "incusbr0";
+              type = "nic";
+            };
+            root = {
+              path = "/";
+              pool = "default";
+              type = "disk";
+            };
+          };
+          name = "default";
+        }
+      ];
+      storage_pools = [
+        {
+          config = {
+            size = "30GiB";
+            source = "/var/lib/incus/storage-pools/default";
+          };
+          driver = "btrfs";
+          name = "default";
+        }
+      ];
+    };
+  };
+
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      data-root = "/work/docker/";
+    };
+  };
+
 
   # Set your time zone.
   time.timeZone = "Asia/Shanghai";
@@ -136,7 +200,7 @@ in {
   users.users."binli" = {
     isNormalUser = true;
     description = "Li Bin";
-    extraGroups = [ "networkmanager" "wheel" "docker"];
+    extraGroups = [ "networkmanager" "wheel" "docker" "incus-admin"];
     packages = with pkgs; [
       # thunderbird
       gnomeExtensions.burn-my-windows
@@ -146,6 +210,7 @@ in {
       gnomeExtensions.kimpanel
       gnomeExtensions.moveclock
       gnomeExtensions.status-icons
+      go
       tree
     ];
   };
@@ -155,7 +220,10 @@ in {
 
   programs.git.enable = true;
   programs.git.prompt.enable = true;
-  programs.neovim.enable = true;
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
   programs.vim.enable = true;
 
   environment.gnome.excludePackages = with pkgs; [
@@ -179,6 +247,7 @@ in {
     black
     debian-devscripts
     dpkg
+    gcc
     gimp
     git-buildpackage
     google-chrome
@@ -203,13 +272,6 @@ in {
     unstable.opencode
   ];
 
-  virtualisation.docker = {
-    enable = true;
-    daemon.settings = {
-      data-root = "/work/docker/";
-    };
-  };
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -233,6 +295,7 @@ in {
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall.trustedInterfaces = [ "incusbr0" ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.substituters = [
