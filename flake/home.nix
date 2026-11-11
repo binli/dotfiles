@@ -265,25 +265,20 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    extraConfig =
-    ''
-StrictHostKeyChecking no
-Host bjp
-  forwardAgent yes
-  hostname bjp-vpn1.canonical.is
-  proxyCommand /nix/store/*-cloudflared-*/bin/cloudflared access ssh --hostname %h
-  user binli
-    '';
     settings."*" = {
-      userKnownHostsFile = "/dev/null";
+      UserKnownHostsFile = "/dev/null";
       controlMaster = "auto";
       controlPersist = "5m";
+      StrictHostKeyChecking = "no";
     };
     settings."*.local 10.106.*.*" = {
-      userKnownHostsFile = "/dev/null";
-      controlMaster = "auto";
-      controlPersist = "5m";
       User = "ubuntu";
+    };
+    settings."bjp" = {
+      User = "binli";
+      ForwardAgent = true;
+      HostName = "bjp-vpn1.canonical.is";
+      ProxyCommand = "/nix/store/*-cloudflared-*/bin/cloudflared access ssh --hostname %h";
     };
   };
   # Let Home Manager install and manage itself.
