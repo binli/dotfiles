@@ -49,7 +49,7 @@ in {
 
     # Select the appropriate driver version for your specific GPU.
     # NixOS 26.05 introduces `hardware.nvidia.branch` as a choice helper.
-    #branch = "beta";
+    #branch = "production";
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
       version = "595.99.02";
       sha256_64bit = "sha256-6HR3lYv3YwcFSTJL1a1slI66btIQ5EAFs+/4SUD24ew=";
@@ -244,7 +244,6 @@ in {
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-    black
     debian-devscripts
     dpkg
     edid-decode
@@ -257,14 +256,6 @@ in {
     jq
     libreoffice-fresh
     mpv
-    (python3.withPackages (ps: with ps; [
-      flake8
-      jinja2
-      launchpadlib
-      llm-openrouter
-      pyyaml
-      requests
-    ]))
     quilt
     shellcheck
     smplayer
@@ -272,6 +263,15 @@ in {
 
     unstable.github-copilot-cli
     unstable.opencode
+    unstable.black
+    (unstable.python3.withPackages (ps: with ps; [
+      flake8
+      jinja2
+      launchpadlib
+      llm-openrouter
+      pyyaml
+      requests
+    ]))
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
