@@ -90,6 +90,9 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+# Define OATH_KEY
+source /work/init/env
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -97,6 +100,7 @@ alias l='ls -CF'
 alias e='exit'
 alias tmux='tmux attach'
 alias dch='/usr/bin/dch -U'
+alias -- sso='oathtool -b --totp $OATH_KEY'
 #below is in openSUSE
 alias ..='cd ..'
 
