@@ -169,6 +169,8 @@
       user.name = "Bin Li";
       user.email = "libin3479@gmail.com";
       alias.st = "status";
+      alias.ca = "commit --trailer \"Assisted-by\:\ GPT-6.2 Sol\"";
+      alias.csa = "commit --signoff --trailer \"Assisted-by\:\ GPT-6.2 Sol\"";
       init.defaultBranch = "main";
       url = {
         "git+ssh://binli@git.launchpad.net/ubuntu/+source/" = {
