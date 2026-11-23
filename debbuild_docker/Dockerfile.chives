@@ -1,40 +1,85 @@
-ARG UBUNTU_VERSION=20.04
-
-FROM docker.m.daocloud.io/library/ubuntu:${UBUNTU_VERSION}
+ARG UBUNTU_VERSION=26.04
+FROM ubuntu:${UBUNTU_VERSION}
 
 ARG USERNAME=ubuntu
-
-RUN --mount=type=secret,id=ubuntu \
-    chpasswd < /run/secrets/ubuntu
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir -p /etc/sudoers.d/ \
     && echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/ubuntu \
     && chmod 0440 /etc/sudoers.d/ubuntu
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        distro-info-data \
+        dpkg-dev \
+        git \
+        openssh-client \
+        python3 \
+        python3-apt \
+        python3-argcomplete \
+        python3-cffi \
+        python3-charset-normalizer \
+        python3-debian \
+        python3-distro-info \
+        python3-editables \
+        python3-hatchling \
+        python3-jinja2 \
+        python3-keystoneauth1 \
+        python3-launchpadlib \
+        python3-nacl \
+        python3-requests \
+        python3-socks \
+        python3-swiftclient \
+        python3-venv \
+        python3-yaml \
+        reprepro \
+        vim \
+        sudo \
+    && rm -rf /var/lib/apt/lists/*
 
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update
-RUN apt-get -y install vim bzr sudo python3-setuptools python3-sphinx
-RUN apt-get clean
+RUN if ! id "$USERNAME" >/dev/null 2>&1; then \
+        useradd --create-home --shell /bin/bash "$USERNAME"; \
+    fi
 
-RUN mkdir -p /home/${USERNAME}/.ssh \
-    && mkdir -p /home/${USERNAME}/.gnupg \
-    && chmod 700 /home/${USERNAME}/.ssh \
-    && chmod 700 /home/${USERNAME}/.gnupg
+ENV HOME=/home/${USERNAME} \
+    CHIVES_CHECKOUT=/source/gits/canonical/oem-python-chives \
+    VIRTUAL_ENV=/home/${USERNAME}/.venvs/chives \
+    PYTHONDONTWRITEBYTECODE=1
+ENV PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
-RUN mkdir -p /source \
-    && chown -R $USERNAME:$USERNAME /source
+COPY --chmod=0755 <<'EOF' /usr/local/bin/chives-local
+#!/bin/bash
+set -euo pipefail
 
-USER $USERNAME
+if [[ ! -f "$CHIVES_CHECKOUT/pyproject.toml" ]]; then
+    printf 'chives-local: checkout not found at %s; mount the host /source at /source\n' \
+        "$CHIVES_CHECKOUT" >&2
+    exit 1
+fi
 
-RUN git config --global user.email "binli@ubuntu.com"
-RUN git config --global user.name "Bin Li"
-ENV DEBEMAIL="binli@ubuntu.com"
-ENV DEBFULLNAME="Bin Li"
-ENV USER="binli"
+cd "$CHIVES_CHECKOUT"
+# Install only the local project. Apt supplies both the runtime dependencies
+# and the Hatchling build backend; pip must not fetch anything.
+python -m pip install --disable-pip-version-check --no-index --no-deps --no-build-isolation --editable .
 
-VOLUME /home/${USERNAME}/.ssh
-VOLUME /home/${USERNAME}/.gnupg
-VOLUME /source
-WORKDIR /source
+env_file="$HOME/.pes/chives.env"
+if [[ -e "$env_file" ]]; then
+    if [[ ! -f "$env_file" || ! -r "$env_file" ]]; then
+        printf 'chives-local: cannot read environment file %s\n' "$env_file" >&2
+        exit 1
+    fi
+    set -a
+    source "$env_file"
+    set +a
+fi
+
+exec "$@"
+EOF
+
+USER ${USERNAME}
+RUN install -d -m 0700 "$HOME/.pes" "$HOME/.pes/config" \
+    && /usr/bin/python3 -m venv --system-site-packages "$VIRTUAL_ENV"
+
+#WORKDIR ${CHIVES_CHECKOUT}
+ENTRYPOINT ["/usr/local/bin/chives-local"]
 CMD ["bash"]
