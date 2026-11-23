@@ -36,6 +36,8 @@ ubuntu-dev-tools
 unar
 universal-ctags
 vim
+gnome-browser-connector
+gnome-shell-extension-prefs
 #gnome-shell-extension-ubuntu-dock
 #gnome-shell-extension-desktop-icons-ng
 #snapd
