@@ -113,6 +113,9 @@
       gtk-enable-primary-paste = true;
       show-battery-percentage = true;
     };
+    "org/gnome/desktop/privacy" = {
+      remember-recent-files = false;
+    };
     "org/gnome/desktop/session" = {
       idle-delay = lib.hm.gvariant.mkUint32 0;
     };
