@@ -9,7 +9,7 @@ debhelper
 devscripts
 dh-modaliases
 dput
-fcitx5-table-wubi
+fcitx5-table-wubi98
 fd-find
 flake8
 jenkins-job-builder
